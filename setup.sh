@@ -7,7 +7,9 @@ make && make check
 make install
 pecl install libsodium
 cd ..
-echo "extension=sodium.so" >> $(php --ini | grep Loaded | cut -d" " -f12)
+if ! grep -q sodium.so $(php --ini | grep Loaded | cut -d" " -f12); then
+	echo "extension=sodium.so" >> $(php --ini | grep Loaded | cut -d" " -f12)
+fi
 git clone https://github.com/paragonie/sodium_compat
 apt-get install php-bcmath
 apt-get install php-memcached memcached
