@@ -56,7 +56,9 @@ function MainFunction($method,$url,$body=false,$jsonBody=true,$jsonResponse=true
   curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);                                                                                      
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   curl_setopt($ch, CURLOPT_USERAGENT, USER_AGENT);
-  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,$timeout); 
+  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,$timeout);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+  curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
   curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
   $headers =  array();
   if ($body) {  
