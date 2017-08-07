@@ -57,7 +57,7 @@ require_once('main.php');
   echo "\nPublic:".$output['public'];
   echo "\nSecret:".$output['secret'];
   ```
-  Creating signed transaction
+  Create signed transaction
   ```php
   $tx = CreateTransaction('9507408743015643357L', '100000000', 'passphrase', false, false, -10);
   $tx = CreateTransaction('9507408743015643357L', '100000000', 'passphrase1', 'passphrase2', false, -10);
@@ -68,6 +68,10 @@ require_once('main.php');
   $tx = SendTransaction('9507408743015643357L', '100000000', 'passphrase', false, false, -10);
   $tx = SendTransaction('9507408743015643357L', '100000000', 'passphrase1', 'passphrase2', false, -10);
   $tx = SendTransaction('9507408743015643357L', '100000000', 'passphrase1', 'passphrase2', 'custom data', -10);
+  ```
+  Get node status
+  ```php
+  var_dump(NodeStatus($server));
   ```
   More examples can be found in [Lisk-cli.php](https://github.com/karek314/lisk-php/blob/master/lisk-cli.php)
   
