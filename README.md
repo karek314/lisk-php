@@ -3,7 +3,7 @@ Interface to interact with Lisk network via PHP
 CLI Tool and library for php projects
 
 ## Requirements
-* PHP 5.3.0 and up, preferably 7.0.0 and up.
+* PHP 7.0.0 and up
 * dependencies from [setup.sh](https://github.com/karek314/lisk-php/blob/master/setup.sh)
 
 ## Installation
