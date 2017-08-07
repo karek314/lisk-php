@@ -24,10 +24,10 @@ const MINVERSION = ">=0.5.0";
 const OS = "lisk-php-api";
 const API_VERSION = "1.0.0";
 
-const SEND_TRANSACTION_ENDPOINT = "/peer/transactions";
-const NODE_STATUS = "/api/loader/status/sync";
-const ACCOUNT_BY_ADDR = "/api/accounts?address=";
-const BLOCKS_ENDPOINT = "/api/blocks/?generatorPublicKey=";
-const VOTERS_ENDPOINT = "/api/delegates/voters?publicKey=";
-const DELEGATE_INFO_ENDPOINT = "/api/delegates/get/?publicKey=";
+const SEND_TRANSACTION_ENDPOINT = "peer/transactions";
+const NODE_STATUS = "api/loader/status/sync";
+const ACCOUNT_BY_ADDR = "api/accounts?address=";
+const BLOCKS_ENDPOINT = "api/blocks/?generatorPublicKey=";
+const VOTERS_ENDPOINT = "api/delegates/voters?publicKey=";
+const DELEGATE_INFO_ENDPOINT = "api/delegates/get/?publicKey=";
 ?>

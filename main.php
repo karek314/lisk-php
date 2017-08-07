@@ -27,18 +27,20 @@ $m = new Memcached();
 $m->addServer('localhost', 11211);
 $lisk_host = $m->get('lisk_host');
 $lisk_port = $m->get('lisk_port');
-if (SECURE) {
-	$server = "https://";
-} else {
-	$server = "http://";
-}
-if ($lisk_host && $lisk_port) {
-	if ($lisk_port != 80 && $lisk_port != 443) {
+$lisk_protocol = $m->get('lisk_protocol');
+if ($lisk_host && $lisk_port && $lisk_protocol) {
+	$server = $lisk_protocol."://";
+	if ($lisk_port == 80 || $lisk_port == 443) {
 		$server .= $lisk_host."/";
 	} else {
 		$server .= $lisk_host.":".$lisk_port."/";
 	}
 } else {
+	if (SECURE) {
+		$server = "https://";
+	} else {
+		$server = "http://";
+	}
 	if (MAINNET) {
 		$lisk_public_nodes = array("node01.lisk.io",
             					   "node02.lisk.io",

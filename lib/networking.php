@@ -40,7 +40,7 @@ function AccountForAddress($address,$server){
 
 
 function NodeStatus($server){
-	$url = $server.NODE_STATUS;
+  $url = $server.NODE_STATUS;
 	return MainFunction("GET",$url,false,false,true,3);
 }
 
@@ -70,7 +70,7 @@ function MainFunction($method,$url,$body=false,$jsonBody=true,$jsonResponse=true
   $port = parse_url($url)['port'];
   if (!$port) {
   	if (parse_url($url)['scheme']=='https') {
-		$port="443";
+		  $port="443";
   	} else {
   		$port="80";
   	}
