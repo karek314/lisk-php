@@ -54,8 +54,8 @@ require_once('main.php');
   Generating public and secret keys from passphrase
   ```php
   $output = getKeysFromSecret('passphrase',true);
-		echo "\nPublic:".$output['public'];
-		echo "\nSecret:".$output['secret'];
+  echo "\nPublic:".$output['public'];
+  echo "\nSecret:".$output['secret'];
   ```
   Creating signed transaction
   ```php
