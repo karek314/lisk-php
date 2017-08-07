@@ -20,6 +20,7 @@ require_once('lib/utils.php');
 require_once('lib/transaction.php');
 require_once('lib/networking.php');
 require_once('lib/bytebuffer/main.php');
+require_once('lib/BigInteger.php');
 require_once('const.php');
 
 
@@ -55,5 +56,6 @@ if ($lisk_host && $lisk_port && $lisk_protocol) {
 		$server .= "testnet.lisk.io/";
 	}
 }
+
 
 ?>

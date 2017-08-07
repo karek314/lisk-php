@@ -84,24 +84,21 @@ function assignTransactionBuffer($transaction, $assetSize, $assetBytes, $options
 		if (array_key_exists('recipientId', $transaction)){ //8
 			$recipient = $transaction['recipientId'];
 			$recipient = substr($recipient, 0, -1);
-			$recipient = bcdechex($recipient);
-			$recipient = str_split($recipient,2);
-			for ($i = 0; $i < 8; $i++) {
-				$byte = bchexdec($recipient[$i]);
-				$transactionBuffer->writeBytes([$byte]);
+			$recipient_bi = new Math_BigInteger($recipient);
+			$bytes = unpack('C*',$recipient_bi->toBytes());
+			for ($i = 1; $i <= 8; $i++) {
+				$transactionBuffer->writeBytes([$bytes[$i]]);
 			}
 		} else {
 			for ($i = 0; $i < 8; $i++) {
 				$transactionBuffer->writeBytes([0]);
 			}
 		}
-		$transactionBuffer->writeInt($transaction['amount'],64); //8
+		$bytes = BBUtils::intToBytes($transaction['amount'],64);
+		$bytes = array_reverse($bytes);
+		$transactionBuffer->writeBytes($bytes);
 		if (array_key_exists('data', $transaction)) {//64
-			$dataBuffer = str_split($transaction['data'],1);
-			for ($i = 0; $i < count($dataBuffer); $i++) {
-				$byte = bchexdec($dataBuffer[$i]);
-				$transactionBuffer->writeBytes([$byte]);
-			}
+			$transactionBuffer = assignHexToTransactionBytes($transactionBuffer, $transaction['data']);//64
 		}
 		if ($assetSize > 0) {
 			for ($i = 0; $i < $assetSize; $i++) {
@@ -119,6 +116,14 @@ function assignTransactionBuffer($transaction, $assetSize, $assetBytes, $options
 		$transactionBuffer->rewind();
 		$size = $transactionBuffer->size();
 		$bytes = $transactionBuffer->readBytes($size);
+		if (DEBUG) {
+			$string = "";
+			foreach ($bytes as $chr) {
+				$string .= $chr;
+			}
+			echo "\n";
+			var_dump($string);
+		}
 		$string = call_user_func_array("pack", array_merge(array("C*"), $bytes));
 		return $string;
 }

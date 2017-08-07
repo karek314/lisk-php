@@ -18,10 +18,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 function CreateTransaction($recipientId, $amount, $passphrase1, $passphrase2, $data, $timeOffset){
 	$time_difference = GetCurrentLiskTimestamp()+$timeOffset;
 	$transaction = array('type' => 0,
-						 'amount' => $amount,
+						 'amount' => (int)$amount,
 						 'fee' => NETWORK_FEE,
-						 'recipientId' => $recipientId,
-						 'timestamp' => $time_difference,
+						 'recipientId' => (string)$recipientId,
+						 'timestamp' => (int)$time_difference,
 						 'asset' => new stdClass()
 						);
 	if ($data) {
