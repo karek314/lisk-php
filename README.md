@@ -66,8 +66,8 @@ require_once('main.php');
   Create and send signed transaction
   ```php
   $tx = SendTransaction('9507408743015643357L', '100000000', 'passphrase', false, false, -10);
-  $tx = SendTransaction('9507408743015643357L', '100000000', 'passphrase1', 'passphrase2', false, -10);
-  $tx = SendTransaction('9507408743015643357L', '100000000', 'passphrase1', 'passphrase2', 'custom data', -10);
+  $result = SendTransaction(json_encode($tx),$server);
+  var_dump($result);
   ```
   Get node status
   ```php
