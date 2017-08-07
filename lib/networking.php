@@ -78,8 +78,8 @@ function MainFunction($method,$url,$body=false,$jsonBody=true,$jsonResponse=true
   array_push($headers, "version: ".API_VERSION);
   array_push($headers, "port: ".$port);
   array_push($headers, "Accept-Language: en-GB");
-  array_push($headers, "nethash: ed14889723f24ecc54871d058d98ce91ff2f973192075c0155ba2b7b70ad2511");
-  array_push($headers, "broadhash: ed14889723f24ecc54871d058d98ce91ff2f973192075c0155ba2b7b70ad2511");
+  array_push($headers, "nethash: ".NETWORK_HASH);
+  array_push($headers, "broadhash: ".NETWORK_HASH);
   curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
   $result = curl_exec($ch);
   if ($jsonResponse) {

@@ -54,5 +54,4 @@ if ($lisk_host && $lisk_port) {
 	}
 }
 
-
 ?>

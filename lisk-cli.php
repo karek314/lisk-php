@@ -178,7 +178,7 @@ function help_message(){
 	newline();
 	echo "\tlisk-php - Interface to interact with Lisk network via PHP";
 	newline();
-	echo "\tCLI Tool and Class for php projects";
+	echo "\tCLI Tool and library for php projects";
 	newline();
 	echo "\tCopyright 2017 Karek314";
 	newline();
@@ -194,6 +194,8 @@ function help_message(){
 	newline();
 	newline();
 	bold_echo('METHODS:');
+	newline();
+	echo "\thelp                  Display this help message";
 	newline();
 	echo "\tgetKeysFromSecret     Generates public and secret from passphrase";
 	newline();
