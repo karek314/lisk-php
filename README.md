@@ -76,7 +76,7 @@ require_once('main.php');
   More examples can be found in [Lisk-cli.php](https://github.com/karek314/lisk-php/blob/master/lisk-cli.php)
   
   ## Custom configuration
-  By default library use one of predefined nodes, however this can be overridden by setting [memcached](https://memcached.org) appropriate values for keys <b>lisk_host</b> and <b>lisk_port</b>.
+  By default library use one of predefined nodes, however this can be overridden by setting [memcached](https://memcached.org) appropriate values for keys <b>lisk_host</b>, <b>lisk_protocol</b> and <b>lisk_port</b>.
 
  ## To do
 - [ ] Implement more endpoints
