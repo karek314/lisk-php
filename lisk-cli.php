@@ -112,17 +112,19 @@ if ($cmd == strtolower('getKeysFromSecret')) {
 	if ($parm1){
 		newline();
 		echo "Blocks->";
-		var_dump(GetBlocksBy($parm1,$server));
+		var_dump(GetBlocksBy($parm1, $server));
 		newline();	
-	} else {
+	}
+	else
+	{
 		newline();
 		method_info();
 		newline();
-		echo 'php lisk-cli.php GetBlocksBy publicKey';
+		echo 'php lisk-cli.php GetBlocksBy';
 		newline();
 		echo 'php lisk-cli.php GetBlocksBy b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84';
 		newline();
-	}
+    }
 } else if ($cmd == strtolower('GetVotersFor')) {
 	if ($parm1){
 		newline();
@@ -153,6 +155,29 @@ if ($cmd == strtolower('getKeysFromSecret')) {
 		echo 'php lisk-cli.php GetDelegateInfo b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84';
 		newline();
 	}
+} else if ($cmd == strtolower('GetBlock')){
+    if ($parm1){
+        newline();
+        echo "Block info->";
+        var_dump(GetBlock($parm1,$server));
+        newline();
+    } else {
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php GetBlock';
+        newline();
+        echo 'php lisk-cli.php GetBlock 6866824482577335503';
+        newline();
+    }
+} else if ($cmd == strtolower('GetFees')){
+        newline();
+        echo "Current blockchain fees->";
+        var_dump(GetFees($server));
+} else if ($cmd == strtolower('GetSupply')){
+        newline();
+        echo "Total Lisk Supply->";
+        var_dump(GetSupply($server));
 } else if ($cmd == strtolower('help')) {
 	help_message();
 } else {
@@ -207,11 +232,15 @@ function help_message(){
 	newline();
 	echo "\tAccount               Get specified account details";
 	newline();
+    echo "\tGetBlock              Get specified block details";
+    newline();
 	echo "\tGetBlocksBy           Get blocks forged by";
 	newline();
 	echo "\tGetVotersFor          Get list of voters for delegate";
 	newline();
 	echo "\tGetDelegateInfo       Get delegate info";
+    newline();
+    echo "\tGetFees               Get blockchain fees";
 	newline();
 	newline();
 }
