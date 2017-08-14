@@ -27,11 +27,31 @@ function GetVotersFor($pk,$server){
 }
 
 
-function GetBlocksBy($pk,$server){
-	$url = $server.BLOCKS_ENDPOINT.$pk.'&limit=100&offset=0&orderBy=height:desc';
+function GetBlocksBy($pk,$server,$offset=0,$orderBy='height',$orderType='desc'){
+	$url = $server.BLOCKS_ENDPOINT.'?generatorPublicKey='.$pk.'&limit=100&offset='.$offset.'&orderBy='.$orderBy.':'.$orderType;
 	return MainFunction("GET",$url,false,false,true,7);
 }
 
+function GetBlock($id,$server){
+    $url = $server.BLOCKS_ENDPOINT.'get?id='.$id;
+    return MainFunction("GET",$url,false,false,true,5);
+}
+
+
+function GetFees($server){
+    $url = $server.BLOCKS_ENDPOINT.'/getFees';
+    return MainFunction("GET",$url,false,false,true,5);
+}
+
+function GetSupply($server){
+    $url = $server.BLOCKS_ENDPOINT.'/getSupply';
+    return MainFunction("GET",$url,false,false,true,5);
+}
+
+function NetworkStatus($server){
+    $url = $server.BLOCKS_ENDPOINT.'/getStatus';
+    return MainFunction("GET",$url,false,false,true,5);
+}
 
 function AccountForAddress($address,$server){
 	$url = $server.ACCOUNT_BY_ADDR.$address;
@@ -40,7 +60,7 @@ function AccountForAddress($address,$server){
 
 
 function NodeStatus($server){
-  $url = $server.NODE_STATUS;
+    $url = $server.NODE_STATUS;
 	return MainFunction("GET",$url,false,false,true,3);
 }
 
