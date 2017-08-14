@@ -178,6 +178,10 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         newline();
         echo "Total Lisk Supply->";
         var_dump(GetSupply($server));
+} else if($cmd == strtolower('NetworkStatus')){
+        newline();
+        echo "Network status->";
+        var_dump(NetworkStatus($server));
 } else if ($cmd == strtolower('help')) {
 	help_message();
 } else {
@@ -241,6 +245,8 @@ function help_message(){
 	echo "\tGetDelegateInfo       Get delegate info";
     newline();
     echo "\tGetFees               Get blockchain fees";
+    newline();
+    echo "\tNetworkStatus         Get network height, epoch , fee, reward, supply";
 	newline();
 	newline();
 }
