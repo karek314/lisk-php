@@ -77,6 +77,7 @@ require_once('main.php');
   
   ## Custom configuration
   By default library use one of predefined nodes, however this can be overridden by setting [memcached](https://memcached.org) appropriate values for keys <b>lisk_host</b>, <b>lisk_protocol</b> and <b>lisk_port</b>.
+  You can switch to testnet changing the <b>MAINNET</b> and <b>NETWORK_HASH</b> values in const.php.
 
  ## To do
 - [ ] Implement more endpoints
