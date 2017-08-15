@@ -27,8 +27,8 @@ const OS = "lisk-php-api";
 const API_VERSION = "1.0.0";
 const SEND_TRANSACTION_ENDPOINT = "peer/transactions";
 const NODE_STATUS = "api/loader/status/sync";
-const ACCOUNT_BY_ADDR = "api/accounts?address=";
+const ACCOUNTS = "api/accounts/";
 const BLOCKS_ENDPOINT = "api/blocks/";
 const VOTERS_ENDPOINT = "api/delegates/voters?publicKey=";
-const DELEGATE_INFO_ENDPOINT = "api/delegates/get/?publicKey=";
+const DELEGATE_ENDPOINT = "api/delegates/";
 ?>

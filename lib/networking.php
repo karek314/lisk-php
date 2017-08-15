@@ -16,7 +16,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
 function GetDelegateInfo($pk,$server){
-	$url = $server.DELEGATE_INFO_ENDPOINT.$pk;
+	$url = $server.DELEGATE_ENDPOINT.'get?publicKey='.$pk;
 	return MainFunction("GET",$url,false,false,true,4);
 }
 
@@ -26,6 +26,30 @@ function GetVotersFor($pk,$server){
 	return MainFunction("GET",$url,false,false,true,5);
 }
 
+function GetForgedByAccount($pk, $server,$start=false,$end=false)
+{
+    if ($start && $end) {
+        $startTab = strptime($start, '%d-%m-%Y %k:%M:%S');
+        $endTab = strptime($end, '%d-%m-%Y %k:%M:%S'); //01-12-2017 0:59:59
+        $startTimestamp = mktime($startTab['tm_hour'], $startTab['tm_min'], $startTab['tm_sec'], $startTab['tm_mon']+1, $startTab['tm_mday'], $startTab['tm_year']+1900);
+        $endTimestamp = mktime($endTab['tm_hour'], $endTab['tm_min'], $endTab['tm_sec'], $endTab['tm_mon']+1, $endTab['tm_mday'], $endTab['tm_year']+1900);
+        var_dump($startTimestamp,$endTimestamp);
+        $url = $server.DELEGATE_ENDPOINT.'forging/getForgedByAccount?generatorPublicKey='.$pk.'&start='.$startTimestamp.'&end='.$endTimestamp;
+    } else {
+        $url = $server.DELEGATE_ENDPOINT.'forging/getForgedByAccount?generatorPublicKey='.$pk;
+    }
+    return MainFunction("GET",$url,false,false,true,5);
+}
+
+function GetDelegatesList($server, $limit=100, $orderBy="rate", $offset=0){
+    $url = $server.DELEGATE_ENDPOINT.'?limit='.$limit.'&offset='.$offset.'&orderBy='.$orderBy;
+    return MainFunction("GET",$url,false,false,true,7);
+}
+
+function GetVotes($address,$server){
+    $url = $server.ACCOUNTS.'delegates/?address='.$address;
+    return MainFunction("GET",$url,false,false,true,5);
+}
 
 function GetBlocksBy($pk,$server,$offset=0,$orderBy='height',$orderType='desc'){
 	$url = $server.BLOCKS_ENDPOINT.'?generatorPublicKey='.$pk.'&limit=100&offset='.$offset.'&orderBy='.$orderBy.':'.$orderType;
@@ -54,7 +78,7 @@ function NetworkStatus($server){
 }
 
 function AccountForAddress($address,$server){
-	$url = $server.ACCOUNT_BY_ADDR.$address;
+	$url = $server.ACCOUNTS.'?address='.$address;
 	return MainFunction("GET",$url,false,false,true,3);
 }
 
