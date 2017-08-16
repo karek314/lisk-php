@@ -20,15 +20,15 @@ const LISK_START = 1464109200;
 const USER_AGENT = "LISK-PHP ".LISK_PHP_VER." via CURL (Linux, en-GB)";
 const SECURE = true;
 const MAINNET = true;
-const NETWORK_HASH = "ed14889723f24ecc54871d058d98ce91ff2f973192075c0155ba2b7b70ad2511"; //Testnet->da3ed6a45429278bac2666961289ca17ad86595d33b31037615d4b8e8f158bba
+const NETWORK_HASH = "ed14889723f24ecc54871d058d98ce91ff2f973192075c0155ba2b7b70ad2511"; //mainnet
+//const NETWORK_HASH = "da3ed6a45429278bac2666961289ca17ad86595d33b31037615d4b8e8f158bba"; //testnet
 const MINVERSION = ">=0.5.0";
 const OS = "lisk-php-api";
 const API_VERSION = "1.0.0";
-
 const SEND_TRANSACTION_ENDPOINT = "peer/transactions";
 const NODE_STATUS = "api/loader/status/sync";
-const ACCOUNT_BY_ADDR = "api/accounts?address=";
-const BLOCKS_ENDPOINT = "api/blocks/?generatorPublicKey=";
+const ACCOUNTS = "api/accounts/";
+const BLOCKS_ENDPOINT = "api/blocks/";
 const VOTERS_ENDPOINT = "api/delegates/voters?publicKey=";
-const DELEGATE_INFO_ENDPOINT = "api/delegates/get/?publicKey=";
+const DELEGATE_ENDPOINT = "api/delegates/";
 ?>

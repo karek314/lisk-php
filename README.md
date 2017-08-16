@@ -40,9 +40,16 @@ METHODS:
 	SendTransaction       Creates signed, ready to broadcast transaction and then broadcast it
 	NodeStatus            Get current selected node status
 	Account               Get specified account details
+	GetBlock              Get specified block details
 	GetBlocksBy           Get blocks forged by
 	GetVotersFor          Get list of voters for delegate
 	GetDelegateInfo       Get delegate info
+	GetFees               Get blockchain fees
+	GetSupply             Get Lisk supply
+	NetworkStatus         Get network height, epoch , fee, reward, supply
+	GetForgedByAccount    Get amount of Lisk forged by an delegate
+	GetDelegatesList      Get delegates list
+	GetVotes              Get account votes
   ```
   
   ### As library in project
@@ -77,6 +84,7 @@ require_once('main.php');
   
   ## Custom configuration
   By default library use one of predefined nodes, however this can be overridden by setting [memcached](https://memcached.org) appropriate values for keys <b>lisk_host</b>, <b>lisk_protocol</b> and <b>lisk_port</b>.
+  You can switch to testnet changing the <b>MAINNET</b> and <b>NETWORK_HASH</b> values in const.php.
 
  ## To do
 - [ ] Implement more endpoints

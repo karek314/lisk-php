@@ -112,17 +112,19 @@ if ($cmd == strtolower('getKeysFromSecret')) {
 	if ($parm1){
 		newline();
 		echo "Blocks->";
-		var_dump(GetBlocksBy($parm1,$server));
+		var_dump(GetBlocksBy($parm1, $server));
 		newline();	
-	} else {
+	}
+	else
+	{
 		newline();
 		method_info();
 		newline();
-		echo 'php lisk-cli.php GetBlocksBy publicKey';
+		echo 'php lisk-cli.php GetBlocksBy';
 		newline();
 		echo 'php lisk-cli.php GetBlocksBy b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84';
 		newline();
-	}
+    }
 } else if ($cmd == strtolower('GetVotersFor')) {
 	if ($parm1){
 		newline();
@@ -153,6 +155,83 @@ if ($cmd == strtolower('getKeysFromSecret')) {
 		echo 'php lisk-cli.php GetDelegateInfo b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84';
 		newline();
 	}
+} else if ($cmd == strtolower('GetBlock')){
+    if ($parm1){
+        newline();
+        echo "Block info->";
+        var_dump(GetBlock($parm1,$server));
+        newline();
+    } else {
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php GetBlock';
+        newline();
+        echo 'php lisk-cli.php GetBlock 6866824482577335503';
+        newline();
+
+    }
+} else if ($cmd == strtolower('GetFees')){
+        newline();
+        echo "Current blockchain fees->";
+        var_dump(GetFees($server));
+} else if ($cmd == strtolower('GetSupply')){
+        newline();
+        echo "Total Lisk Supply->";
+        var_dump(GetSupply($server));
+} else if($cmd == strtolower('NetworkStatus')){
+        newline();
+        echo "Network status->";
+        var_dump(NetworkStatus($server));
+} else if($cmd == strtolower('GetForgedByAccount')){
+    if ($parm1){
+        newline();
+        echo "Forged by delegate->";
+        var_dump(GetForgedByAccount($parm1,$server));
+        newline();
+    } else if($parm1 && $parm2 && $parm3){
+        newline();
+        echo "Forged by delegate->";
+        var_dump(GetForgedByAccount($parm1,$server,$parm2,$parm3));
+        newline();
+    } else {
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php GetForgedByAccount publicKey';
+        newline();
+        echo 'Optionally parameters: since...to in "dd-mm-yyyy h:mm:ss" format. php lisk-cli.php GetForgedByAccount publicKey "01-07-2017 0:59:59" "31-07-2017 0:59:59"';
+        newline();
+        echo 'php lisk-cli.php GetForgedByAccount b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84';
+        newline();
+        echo 'php lisk-cli.php GetForgedByAccount b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84 "01-07-2017 0:59:59" "31-07-2017 0:59:59"';
+        newline();
+    }
+
+} else if($cmd == strtolower('GetDelegatesList')){
+    newline();
+    echo "First 101 delegates->";
+    var_dump(GetDelegatesList($server));
+    newline();
+    echo "You can also use optional parameters: limit orderBy offset orderType";
+    if($parm1 && $parm2 && $parm3){
+        var_dump(GetDelegatesList($server,$parm1,$parm2,$parm3));
+    }
+} else if($cmd == strtolower('GetVotes')){
+    if ($parm1){
+        newline();
+        echo "Account votes->";
+        var_dump(GetVotes($parm1,$server));
+        newline();
+    } else{
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php GetVotes address';
+        newline();
+        echo 'php lisk-cli.php GetVotes 11406747278331941053L';
+        newline();
+    }
 } else if ($cmd == strtolower('help')) {
 	help_message();
 } else {
@@ -207,12 +286,26 @@ function help_message(){
 	newline();
 	echo "\tAccount               Get specified account details";
 	newline();
+    echo "\tGetBlock              Get specified block details";
+    newline();
 	echo "\tGetBlocksBy           Get blocks forged by";
 	newline();
 	echo "\tGetVotersFor          Get list of voters for delegate";
 	newline();
 	echo "\tGetDelegateInfo       Get delegate info";
+    newline();
+    echo "\tGetFees               Get blockchain fees";
+    newline();
+    echo "\tGetSupply             Get Lisk supply";
+    newline();
+    echo "\tNetworkStatus         Get network height, epoch , fee, reward, supply";
 	newline();
+    echo "\tGetForgedByAccount    Get amount of Lisk forged by an delegate";
+    newline();
+    echo "\tGetDelegatesList      Get delegates list";
+    newline();
+    echo "\tGetVotes              Get account votes";
+    newline();
 	newline();
 }
 
