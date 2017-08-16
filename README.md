@@ -40,9 +40,16 @@ METHODS:
 	SendTransaction       Creates signed, ready to broadcast transaction and then broadcast it
 	NodeStatus            Get current selected node status
 	Account               Get specified account details
+	GetBlock              Get specified block details
 	GetBlocksBy           Get blocks forged by
 	GetVotersFor          Get list of voters for delegate
 	GetDelegateInfo       Get delegate info
+	GetFees               Get blockchain fees
+	GetSupply             Get Lisk supply
+	NetworkStatus         Get network height, epoch , fee, reward, supply
+	GetForgedByAccount    Get amount of Lisk forged by an delegate
+	GetDelegatesList      Get delegates list
+	GetVotes              Get account votes
   ```
   
   ### As library in project

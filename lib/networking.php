@@ -33,7 +33,6 @@ function GetForgedByAccount($pk, $server,$start=false,$end=false)
         $endTab = strptime($end, '%d-%m-%Y %k:%M:%S'); //01-12-2017 0:59:59
         $startTimestamp = mktime($startTab['tm_hour'], $startTab['tm_min'], $startTab['tm_sec'], $startTab['tm_mon']+1, $startTab['tm_mday'], $startTab['tm_year']+1900);
         $endTimestamp = mktime($endTab['tm_hour'], $endTab['tm_min'], $endTab['tm_sec'], $endTab['tm_mon']+1, $endTab['tm_mday'], $endTab['tm_year']+1900);
-        var_dump($startTimestamp,$endTimestamp);
         $url = $server.DELEGATE_ENDPOINT.'forging/getForgedByAccount?generatorPublicKey='.$pk.'&start='.$startTimestamp.'&end='.$endTimestamp;
     } else {
         $url = $server.DELEGATE_ENDPOINT.'forging/getForgedByAccount?generatorPublicKey='.$pk;
@@ -41,8 +40,8 @@ function GetForgedByAccount($pk, $server,$start=false,$end=false)
     return MainFunction("GET",$url,false,false,true,5);
 }
 
-function GetDelegatesList($server, $limit=100, $orderBy="rate", $offset=0){
-    $url = $server.DELEGATE_ENDPOINT.'?limit='.$limit.'&offset='.$offset.'&orderBy='.$orderBy;
+function GetDelegatesList($server, $limit=101, $orderBy="rate", $offset=0, $orderType="asc"){
+    $url = $server.DELEGATE_ENDPOINT.'?limit='.$limit.'&offset='.$offset.'&orderBy='.$orderBy.':'.$orderType;
     return MainFunction("GET",$url,false,false,true,7);
 }
 
