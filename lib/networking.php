@@ -26,34 +26,46 @@ function GetVotersFor($pk,$server){
 	return MainFunction("GET",$url,false,false,true,5);
 }
 
-function GetForgedByAccount($pk, $server,$start=false,$end=false)
-{
+
+function GetForgedByAccount($pk, $server,$start=false,$end=false){
     if ($start && $end) {
+      if (is_numeric($start)) {
+        $startTimestamp = $start;
+      } else {
         $startTab = strptime($start, '%d-%m-%Y %k:%M:%S');
-        $endTab = strptime($end, '%d-%m-%Y %k:%M:%S'); //01-12-2017 0:59:59
         $startTimestamp = mktime($startTab['tm_hour'], $startTab['tm_min'], $startTab['tm_sec'], $startTab['tm_mon']+1, $startTab['tm_mday'], $startTab['tm_year']+1900);
+      }
+      if (is_numeric($end)) {
+        $endTimestamp = $end;
+      } else {
+        $endTab = strptime($end, '%d-%m-%Y %k:%M:%S'); //01-12-2017 0:59:59
         $endTimestamp = mktime($endTab['tm_hour'], $endTab['tm_min'], $endTab['tm_sec'], $endTab['tm_mon']+1, $endTab['tm_mday'], $endTab['tm_year']+1900);
-        $url = $server.DELEGATE_ENDPOINT.'forging/getForgedByAccount?generatorPublicKey='.$pk.'&start='.$startTimestamp.'&end='.$endTimestamp;
+      }
+      $url = $server.DELEGATE_ENDPOINT.'forging/getForgedByAccount?generatorPublicKey='.$pk.'&start='.$startTimestamp.'&end='.$endTimestamp;
     } else {
-        $url = $server.DELEGATE_ENDPOINT.'forging/getForgedByAccount?generatorPublicKey='.$pk;
+      $url = $server.DELEGATE_ENDPOINT.'forging/getForgedByAccount?generatorPublicKey='.$pk;
     }
     return MainFunction("GET",$url,false,false,true,5);
 }
+
 
 function GetDelegatesList($server, $limit=101, $orderBy="rate", $offset=0, $orderType="asc"){
     $url = $server.DELEGATE_ENDPOINT.'?limit='.$limit.'&offset='.$offset.'&orderBy='.$orderBy.':'.$orderType;
     return MainFunction("GET",$url,false,false,true,7);
 }
 
+
 function GetVotes($address,$server){
     $url = $server.ACCOUNTS.'delegates/?address='.$address;
     return MainFunction("GET",$url,false,false,true,5);
 }
 
+
 function GetBlocksBy($pk,$server,$offset=0,$orderBy='height',$orderType='desc'){
 	$url = $server.BLOCKS_ENDPOINT.'?generatorPublicKey='.$pk.'&limit=100&offset='.$offset.'&orderBy='.$orderBy.':'.$orderType;
 	return MainFunction("GET",$url,false,false,true,7);
 }
+
 
 function GetBlock($id,$server){
     $url = $server.BLOCKS_ENDPOINT.'get?id='.$id;
@@ -66,15 +78,18 @@ function GetFees($server){
     return MainFunction("GET",$url,false,false,true,5);
 }
 
+
 function GetSupply($server){
     $url = $server.BLOCKS_ENDPOINT.'/getSupply';
     return MainFunction("GET",$url,false,false,true,5);
 }
 
+
 function NetworkStatus($server){
     $url = $server.BLOCKS_ENDPOINT.'/getStatus';
     return MainFunction("GET",$url,false,false,true,5);
 }
+
 
 function AccountForAddress($address,$server){
 	$url = $server.ACCOUNTS.'?address='.$address;

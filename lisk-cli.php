@@ -114,9 +114,7 @@ if ($cmd == strtolower('getKeysFromSecret')) {
 		echo "Blocks->";
 		var_dump(GetBlocksBy($parm1, $server));
 		newline();	
-	}
-	else
-	{
+	} else {
 		newline();
 		method_info();
 		newline();
@@ -200,7 +198,9 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         newline();
         echo 'php lisk-cli.php GetForgedByAccount publicKey';
         newline();
-        echo 'Optionally parameters: since...to in "dd-mm-yyyy h:mm:ss" format. php lisk-cli.php GetForgedByAccount publicKey "01-07-2017 0:59:59" "31-07-2017 0:59:59"';
+        echo 'Optionally parameters: since...to in "dd-mm-yyyy h:mm:ss" format. (can be also timestamp)';
+        newline();
+        echo 'php lisk-cli.php GetForgedByAccount publicKey "01-07-2017 0:59:59" "31-07-2017 0:59:59"';
         newline();
         echo 'php lisk-cli.php GetForgedByAccount b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84';
         newline();
