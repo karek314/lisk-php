@@ -39,7 +39,7 @@ function Vanitygen($lenght=12,$prefix){
         return $response;
       }
     }
-    $diff = microtime(true)-$start_time; 2/
+    $diff = microtime(true)-$start_time;
     $acc_per_sec = $j/$diff;
     $current = new DateTime();
     $interval = $start->diff($current);
