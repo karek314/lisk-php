@@ -29,6 +29,7 @@ if ($cmd == strtolower('getKeysFromSecret')) {
 	if ($parm1) {
 		echo "Passphrase:".$parm1;
 		$output = getKeysFromSecret($parm1,true);
+		echo "\nAddress:".getAddressFromPublicKey($output['public']);
 		echo "\nPublic:".$output['public'];
 		echo "\nSecret:".$output['secret'];
 		newline();
@@ -232,6 +233,71 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         echo 'php lisk-cli.php GetVotes 11406747278331941053L';
         newline();
     }
+} else if($cmd == strtolower('GenerateAccount')){
+    if ($parm1){
+        newline();
+        if ($parm2) {
+        	$passphrase = GenerateAccount($parm1,hash('sha256',$parm2));
+        } else {
+        	$passphrase = GenerateAccount($parm1);
+        }
+        $output = getKeysFromSecret($passphrase,true);
+        newline();
+        echo "Account Generated->";
+        newline();
+        echo "Passphrase:".$passphrase;
+        newline();
+		echo "Address:".getAddressFromPublicKey($output['public']);
+		newline();
+		echo "Public:".$output['public'];
+		newline();
+		echo "Secret:".$output['secret'];
+        newline();
+        newline();
+    } else{
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php GenerateAccount SeedLenght(12,15,21,24) OptionalEntropy';
+        newline();
+        echo 'php lisk-cli.php GenerateAccount 12';
+        newline();
+        echo 'php lisk-cli.php GenerateAccount 12 CUSTOM_ENTROPY_STRING';
+        newline();
+        echo 'If you want to generate account based on entropy derived from MCRYPT_DEV_URANDOM leave 2nd parm empty. However if you aim to get more unique entropy, please specify parm2 as string without char limit, typing more than 64-128 random chars should make pretty unique entropy. You can also simply do';
+        newline();
+        echo 'php lisk-cli.php GenerateAccount 12 123';
+        newline();
+        echo 'However such account will be pretty easy to regenerate';
+        newline();
+    }
+} else if($cmd == strtolower('Vanitygen')){
+    if ($parm1){
+        newline();
+       	$account = Vanitygen($parm1,$parm2);
+        newline();
+        echo "Found account with [".$parm2."] prefix->";
+        newline();
+        echo "Passphrase:".$account['passphrase'];
+        newline();
+		echo "Address:".$account['address'];
+		newline();
+		echo "Public:".$account['public'];
+		newline();
+		echo "Secret:".$account['secret'];
+        newline();
+        newline();
+    } else{
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php GenerateAccount SeedLenght(12,15,21,24) Prefix';
+        newline();
+        echo 'php lisk-cli.php GenerateAccount 12 958';
+        newline();
+        echo 'Each character added as prefix in address generation will increase time to find exponentially. Currently Lisk addresses are numeric hence only numbers allowed.';
+        newline();
+    }
 } else if ($cmd == strtolower('help')) {
 	help_message();
 } else {
@@ -275,6 +341,10 @@ function help_message(){
 	bold_echo('METHODS:');
 	newline();
 	echo "\thelp                  Display this help message";
+	newline();
+	echo "\tGenerateAccount       Generates new bip39 account";
+	newline();
+	echo "\tVanitygen             Generates new bip39 account with desired prefix";
 	newline();
 	echo "\tgetKeysFromSecret     Generates public and secret from passphrase";
 	newline();

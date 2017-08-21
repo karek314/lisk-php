@@ -34,22 +34,35 @@ INFO:
 	Each METHOD can be executed without any parms to get more detailed help information which parms are needed.
 
 METHODS:
-	help                  Display this help message
-	getKeysFromSecret     Generates public and secret from passphrase
-	CreateTransaction     Creates signed, ready to broadcast transaction
-	SendTransaction       Creates signed, ready to broadcast transaction and then broadcast it
-	NodeStatus            Get current selected node status
-	Account               Get specified account details
-	GetBlock              Get specified block details
-	GetBlocksBy           Get blocks forged by
-	GetVotersFor          Get list of voters for delegate
-	GetDelegateInfo       Get delegate info
-	GetFees               Get blockchain fees
-	GetSupply             Get Lisk supply
-	NetworkStatus         Get network height, epoch , fee, reward, supply
-	GetForgedByAccount    Get amount of Lisk forged by an delegate
-	GetDelegatesList      Get delegates list
-	GetVotes              Get account votes
+  help                  Display this help message
+  GenerateAccount       Generates new bip39 account
+  Vanitygen             Generates new bip39 account with desired prefix
+  getKeysFromSecret     Generates public and secret from passphrase
+  CreateTransaction     Creates signed, ready to broadcast transaction
+  SendTransaction       Creates signed, ready to broadcast transaction and then broadcast it
+  NodeStatus            Get current selected node status
+  Account               Get specified account details
+  GetBlock              Get specified block details
+  GetBlocksBy           Get blocks forged by
+  GetVotersFor          Get list of voters for delegate
+  GetDelegateInfo       Get delegate info
+  GetFees               Get blockchain fees
+  GetSupply             Get Lisk supply
+  NetworkStatus         Get network height, epoch , fee, reward, supply
+  GetForgedByAccount    Get amount of Lisk forged by an delegate
+  GetDelegatesList      Get delegates list
+  GetVotes              Get account votes
+  ```
+  
+  Lisk vanitygen
+  Looks for address starting with 1337 with 24 words seed
+  ```sh
+  php lisk-cli.php Vanitygen 24 1337
+  ```
+
+  Generate new account with 24 words seed
+  ```sh
+  php lisk-cli.php GenerateAccount 24
   ```
   
   ### As library in project

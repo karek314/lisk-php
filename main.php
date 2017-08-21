@@ -17,6 +17,8 @@ error_reporting(error_reporting() & ~E_NOTICE & ~E_WARNING);
 require_once('lib/sodium_compat/autoload.php');
 require_once('lib/crypto.php');
 require_once('lib/utils.php');
+require_once('lib/bip39words.php');
+require_once('lib/account.php');
 require_once('lib/transaction.php');
 require_once('lib/networking.php');
 require_once('lib/bytebuffer/main.php');

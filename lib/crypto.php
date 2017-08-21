@@ -45,6 +45,26 @@ function getSignedTxBody($transaction){
 }
 
 
+function getAddressFromPublicKey($pubKey){
+	$buffer = BBStream::factory('');
+	$buffer->isLittleEndian = false;
+	assignHexToBuffer($buffer, $pubKey);
+	$buffer->rewind();
+	$size = $buffer->size();
+	$bytes = $buffer->readBytes($size);
+	$pubKey = call_user_func_array("pack", array_merge(array("C*"), $bytes));
+	$pubKeyHash = hash('sha256', $pubKey);
+	$byte_array = str_split($pubKeyHash,2);
+	$tmp = array();
+	for ($i = 0; $i < 8; $i++) {
+		$tmp[$i] = $byte_array[7 - $i];
+	}
+	$tmp = implode("",$tmp);
+	$tmp = bchexdec($tmp);
+	return $tmp.'L';
+}
+
+
 function getTxId($transaction) {
 	$bytes = getTxAssetBytes($transaction);
 	$assetSize = $bytes['assetSize'];
@@ -62,7 +82,7 @@ function getTxId($transaction) {
 }
 
 
-function assignHexToTransactionBytes($transactionBuffer, $hexValue) {
+function assignHexToBuffer($transactionBuffer, $hexValue) {
 	$hexBuffer = str_split($hexValue,2);
 	foreach ($hexBuffer as $key => $value) {
 		$byte = bchexdec($value);
@@ -77,9 +97,9 @@ function assignTransactionBuffer($transaction, $assetSize, $assetBytes, $options
 		$transactionBuffer->isLittleEndian = false;
 		$transactionBuffer->writeInt($transaction['type'], 8);//1
 		$transactionBuffer->writeInt($transaction['timestamp']); //4
-		$transactionBuffer = assignHexToTransactionBytes($transactionBuffer, $transaction['senderPublicKey']);
+		$transactionBuffer = assignHexToBuffer($transactionBuffer, $transaction['senderPublicKey']);
 		if (array_key_exists('requesterPublicKey', $transaction)) {//32
-			assignHexToTransactionBytes($transactionBuffer, $transaction['requesterPublicKey']);
+			assignHexToBuffer($transactionBuffer, $transaction['requesterPublicKey']);
 		}
 		if (array_key_exists('recipientId', $transaction)){ //8
 			$recipient = $transaction['recipientId'];
@@ -98,7 +118,7 @@ function assignTransactionBuffer($transaction, $assetSize, $assetBytes, $options
 		$bytes = array_reverse($bytes);
 		$transactionBuffer->writeBytes($bytes);
 		if (array_key_exists('data', $transaction)) {//64
-			$transactionBuffer = assignHexToTransactionBytes($transactionBuffer, $transaction['data']);//64
+			$transactionBuffer = assignHexToBuffer($transactionBuffer, $transaction['data']);//64
 		}
 		if ($assetSize > 0) {
 			for ($i = 0; $i < $assetSize; $i++) {
@@ -107,10 +127,10 @@ function assignTransactionBuffer($transaction, $assetSize, $assetBytes, $options
 		}
 		if($options != 'multisignature') {
 			if (array_key_exists('signature', $transaction)) {
-				$transactionBuffer = assignHexToTransactionBytes($transactionBuffer, $transaction['signature']);//64
+				$transactionBuffer = assignHexToBuffer($transactionBuffer, $transaction['signature']);//64
 			}
 			if (array_key_exists('signSignature', $transaction)) {
-				$transactionBuffer = assignHexToTransactionBytes($transactionBuffer, $transaction['signSignature']);//64
+				$transactionBuffer = assignHexToBuffer($transactionBuffer, $transaction['signSignature']);//64
 			}
 		}
 		$transactionBuffer->rewind();
@@ -145,17 +165,6 @@ function bchexdec($hex){
         $dec = bcadd($dec, bcmul(strval(hexdec($hex[$i - 1])), bcpow('16', strval($len - $i))));
     }
     return $dec;
-}
-
-
-function bcdechex($dec) {
-    $hex = '';
-    do {    
-        $last = bcmod($dec, 16);
-        $hex = dechex($last).$hex;
-        $dec = bcdiv(bcsub($dec, $last), 16);
-    } while($dec>0);
-    return $hex;
 }
 
 
