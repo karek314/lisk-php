@@ -1,5 +1,5 @@
 apt-get remove libsodium-dev
-apt-get install php-pear php-bcmath php-memcached php-curl memcached php7.0-dev php-gmp -y
+apt-get install php-pear php-bcmath php-memcached php-mcrypt php-curl memcached php7.0-dev php-gmp -y
 cd lib
 git clone https://github.com/jedisct1/libsodium --branch stable
 cd libsodium
