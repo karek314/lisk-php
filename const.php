@@ -15,7 +15,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 const DEBUG = false;
 const LISK_PHP_VER = 1.0;
-const NETWORK_FEE = 10000000;
 const LISK_START = 1464109200;
 const USER_AGENT = "LISK-PHP ".LISK_PHP_VER." via CURL (Linux, en-GB)";
 const SECURE = true;
@@ -31,4 +30,16 @@ const ACCOUNTS = "api/accounts/";
 const BLOCKS_ENDPOINT = "api/blocks/";
 const VOTERS_ENDPOINT = "api/delegates/voters?publicKey=";
 const DELEGATE_ENDPOINT = "api/delegates/";
+
+const LSK_BASE = 100000000;
+const SEND_FEE = 0.1 * LSK_BASE;
+const DATA_FEE = 0.1 * LSK_BASE;
+const SIG_FEE = 5 * LSK_BASE;
+const DELEGATE_FEE = 25 * LSK_BASE;
+const VOTE_FEE = 1 * LSK_BASE;
+const MULTISIG_FEE = 5 * LSK_BASE;
+const DAPP_FEE = 25 * LSK_BASE;
+
+const SEND_TRANSACTION_FLAG = 0;
+const SECOND_SIG_TRANSACTION_FLAG = 1;
 ?>

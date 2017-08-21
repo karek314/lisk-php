@@ -15,14 +15,30 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 
 
-function CreateTransaction($recipientId, $amount, $passphrase1, $passphrase2, $data, $timeOffset){
+function CreateTransaction($recipientId, $amount, $passphrase1, $passphrase2, $data, $timeOffset, $type=SEND_TRANSACTION_FLAG, $asset=false){
+	if (!$asset) {
+		$asset = new stdClass();
+	}
+	if ($type == SEND_TRANSACTION_FLAG) {
+		$fee = SEND_FEE;
+	} else if ($type == 1) {
+		$fee = SIG_FEE;
+	} else if ($type == 2) {
+		$fee = DELEGATE_FEE;
+	} else if ($type == 3) {
+		$fee = VOTE_FEE;
+	} else if ($type == 4) {
+		$fee = MULTISIG_FEE;
+	} else if ($type == 5) {
+		$fee = DAPP_FEE;
+	}
 	$time_difference = GetCurrentLiskTimestamp()+$timeOffset;
-	$transaction = array('type' => 0,
+	$transaction = array('type' => $type,
 						 'amount' => (int)$amount,
-						 'fee' => NETWORK_FEE,
-						 'recipientId' => (string)$recipientId,
+						 'fee' => $fee,
+						 'recipientId' => $recipientId,
 						 'timestamp' => (int)$time_difference,
-						 'asset' => new stdClass()
+						 'asset' => $asset
 						);
 	if ($data) {
 		$transaction['data'] = $data;
@@ -38,6 +54,13 @@ function CreateTransaction($recipientId, $amount, $passphrase1, $passphrase2, $d
 	}
 	$transaction['id'] = getTxId($transaction);
 	return array('transaction' => $transaction);
+}
+
+
+function Create2ndPassphrase($passphrase_base,$second_passphrase){
+	$publicKey = getKeysFromSecret($second_passphrase,true)['public'];
+	$asset['signature']['publicKey'] = $publicKey;
+	return CreateTransaction(null, 0, $passphrase_base, null, false, -10, SECOND_SIG_TRANSACTION_FLAG, $asset);
 }
 
 

@@ -46,7 +46,7 @@ if ($cmd == strtolower('getKeysFromSecret')) {
 	if ($parm1 && $parm2 && $parm3) {
 		echo "Amount:".$parm2."\n";
 		echo "Recipient:".$parm1."\n";
-		$amount = 100000000*$parm2;
+		$amount = LSK_BASE*$parm2;
 		if ($parm4) {
 			echo "Signing with 2 passphrases\n";
 		} else {
@@ -71,7 +71,7 @@ if ($cmd == strtolower('getKeysFromSecret')) {
 	if ($parm1 && $parm2 && $parm3) {
 		echo "Amount:".$parm2."\n";
 		echo "Recipient:".$parm1."\n";
-		$amount = 100000000*$parm2;
+		$amount = LSK_BASE*$parm2;
 		if ($parm4) {
 			echo "Signing with 2 passphrases\n";
 		} else {
@@ -275,7 +275,7 @@ if ($cmd == strtolower('getKeysFromSecret')) {
     if ($parm1){
         newline();
        	$account = Vanitygen($parm1,$parm2);
-        newline();
+       	newline();
         echo "Found account with [".$parm2."] prefix->";
         newline();
         echo "Passphrase:".$account['passphrase'];
@@ -296,6 +296,49 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         echo 'php lisk-cli.php GenerateAccount 12 958';
         newline();
         echo 'Each character added as prefix in address generation will increase time to find exponentially. Currently Lisk addresses are numeric hence only numbers allowed.';
+        newline();
+    }
+} else if($cmd == strtolower('Create2ndPassphrase')){
+    if ($parm1 && $parm2){
+        newline();
+        if ($parm3) {
+        	if (substr_count($parm3, ' ') > 10) {
+        		$second_passphrase = $parm3;
+        	} else {
+        		$second_passphrase = GenerateAccount($parm2,$parm3);
+        	}
+        } else {
+        	$second_passphrase = GenerateAccount($parm2);
+        }
+        echo 'Second Passphrase:'.$second_passphrase;
+       	$tx = Create2ndPassphrase($parm1,$second_passphrase);
+       	newline();
+       	echo "Transaction->";
+		var_dump($tx);
+		newline();
+		bold_echo("Response->");
+		var_dump(SendTransaction(json_encode($tx),$server));
+        newline();
+        newline();
+    } else{
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php Create2ndPassphrase "passphrase" SeedLenght(12,15,21,24) Optionally(PredefinedSecondPassphrase or custom entropy)';
+        newline();
+        echo 'Examples';
+        newline();
+        echo 'Second Signature with 12 word seed lenght';
+        newline();
+        echo 'php lisk-cli.php Create2ndPassphrase "word word word" 12';
+        newline();
+        echo 'Second Signature with 24 word seed lenght and custom entropy';
+        newline();
+        echo 'php lisk-cli.php Create2ndPassphrase "word word word" 24 96CAE35CE8A9B0244178BF28E4966C2CE1B8385723A96A6B838858CDD6CA0A1E';
+        newline();
+        echo 'Second Signature with custom word seed';
+        newline();
+        echo 'php lisk-cli.php Create2ndPassphrase "word word word" 1 "word2 word2 word2"';
         newline();
     }
 } else if ($cmd == strtolower('help')) {
@@ -345,6 +388,8 @@ function help_message(){
 	echo "\tGenerateAccount       Generates new bip39 account";
 	newline();
 	echo "\tVanitygen             Generates new bip39 account with desired prefix";
+	newline();
+	echo "\tCreate2ndPassphrase   Generates second signature to specified account";
 	newline();
 	echo "\tgetKeysFromSecret     Generates public and secret from passphrase";
 	newline();
