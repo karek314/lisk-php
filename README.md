@@ -56,9 +56,9 @@ METHODS:
   ```
   
   <b>Lisk vanitygen</b><br>
-  Looks for address starting with 1337 with 24 words seed
+  Looks for address starting with 1312223 with 24 words seed
   ```sh
-  php lisk-cli.php Vanitygen 24 1337
+  php lisk-cli.php Vanitygen 24 1312223
   ```
   
   ```sh
