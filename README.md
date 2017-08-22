@@ -55,11 +55,21 @@ METHODS:
 	GetVotes              Get account votes
   ```
   
-  Lisk vanitygen
+  <b>Lisk vanitygen</b><br>
   Looks for address starting with 1337 with 24 words seed
   ```sh
   php lisk-cli.php Vanitygen 24 1337
   ```
+  
+  ```sh
+  [Done:2271633] [Accounts per sec: 23.404] [Elapsed time: 1d 3h 11min 55s]
+Found account with [1312223] prefix->
+Passphrase:fluid ostrich moral until nose slim level tumble excess winter border ready allow reflect skill acid proud possible arm fade guide among myself myself
+Address:13122233654116561038L
+Public:553538b4dd31a4996cfa143713661bdcdf4ec27c9e8155159d3eefdf480acfe2
+Secret:168b85c9704dc8c1c87d74db4f0dc95869af5fd05c8ae43bc9e8273855f90bd8553538b4dd31a4996cfa143713661bdcdf4ec27c9e8155159d3eefdf480acfe2
+  ```
+
 
   Generate new account with 24 words seed
   ```sh
