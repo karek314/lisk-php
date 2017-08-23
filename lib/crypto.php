@@ -15,11 +15,100 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 
 
+function EncryptMessage($message, $passphrase, $recipientPublicKey) {
+	$senderPrivateKey = getKeysFromSecret($passphrase)['secret'];
+	$convertedPrivateKey = sodium_crypto_sign_ed25519_sk_to_curve25519($senderPrivateKey);
+	$convertedPublicKey = sodium_crypto_sign_ed25519_pk_to_curve25519(hex2bin($recipientPublicKey));
+	$nonce = random_bytes(SODIUM_CRYPTO_BOX_NONCEBYTES);
+	$skpk = sodium_crypto_box_keypair_from_secretkey_and_publickey($convertedPrivateKey,$convertedPublicKey);
+	$encryptedMessage = sodium_crypto_box(hex2bin(strToHex($message)), $nonce, $skpk);
+	return array(
+		"nonce" => bin2hex($nonce),
+		"message" => bin2hex($encryptedMessage),
+	);
+}
+
+
+function DecryptMessage($message, $nonce, $passphrase, $senderPublicKey) {
+	$recipientPrivateKey = getKeysFromSecret($passphrase)['secret'];
+	$convertedPrivateKey = sodium_crypto_sign_ed25519_sk_to_curve25519($recipientPrivateKey);
+	$convertedPublicKey = sodium_crypto_sign_ed25519_pk_to_curve25519(hex2bin($senderPublicKey));
+	$skpk = sodium_crypto_box_keypair_from_secretkey_and_publickey($convertedPrivateKey,$convertedPublicKey);
+	$output = sodium_crypto_box_open(hex2bin($message),hex2bin($nonce),$skpk);
+	return $output;
+}
+
+
+function VerifyMessage($signedMessage, $publicKey1, $publicKey2=false) {
+	if (strlen($publicKey1) != 64) {
+		return "Invalid publicKey lenght.";
+	}
+	if ($publicKey2 && strlen($publicKey2) != 64) {
+		return "Invalid publicKey2 lenght.";
+	}
+	if ($publicKey2) {
+		$tmp = $publicKey1;
+		$publicKey1 = $publicKey2;
+		$publicKey2 = $tmp;
+	}
+	$openSignature = sodium_crypto_sign_open(hex2bin($signedMessage), hex2bin($publicKey1));
+	if ($openSignature) {
+		if ($publicKey2) {
+			$openSignature = sodium_crypto_sign_open($openSignature, hex2bin($publicKey2));
+			if ($openSignature) {
+				return hextostr(bin2hex($openSignature));
+			} else {
+				return  "Invalid signature publicKey2 combination, cannot verify message";
+			}
+		} else {
+			return hextostr(bin2hex($openSignature));
+		}
+	} else {
+		return  "Invalid signature publicKey combination, cannot verify message";
+	}
+}
+
+
+function signMessageWithSecret($message, $passphrase1, $passphrase2=false) {
+	$signedMessage = sodium_crypto_sign(hex2bin(strToHex($message)), getKeysFromSecret($passphrase1)['secret']);
+	if ($passphrase2) {
+		$signedMessage = sodium_crypto_sign($signedMessage, getKeysFromSecret($passphrase2)['secret']);
+	}
+	return bin2hex($signedMessage);
+}
+
+
+function signMessage($message, $passphrase1, $passphrase2=false) {
+	$signedMessageHeader = '-----BEGIN LISK SIGNED MESSAGE-----';
+	$messageHeader = '-----MESSAGE-----';
+	$plainMessage = $message;
+	$pubklicKeyHeader = '-----PUBLIC KEY-----';
+	$publicKey = getKeysFromSecret($passphrase1,true)['public'];
+	if ($passphrase2) {
+		$publicKey .= PHP_EOL.getKeysFromSecret($passphrase2,true)['public'];
+	}
+	$signatureHeader = '-----SIGNATURE-----';
+	$signedMessage = signMessageWithSecret($message, $passphrase1, $passphrase2);
+	$signatureFooter = '-----END LISK SIGNED MESSAGE-----';
+ 	$outputArray = array(
+		$signedMessageHeader,
+		$messageHeader,
+		$plainMessage,
+		$pubklicKeyHeader,
+		$publicKey,
+		$signatureHeader,
+		$signedMessage,
+		$signatureFooter
+	);
+	return implode(PHP_EOL, $outputArray);
+}
+
+
 function getKeysFromSecret($secret,$string=false) {
 	$hash = hex2bin(hash('sha256', $secret));
-	$kp = \Sodium\crypto_sign_seed_keypair($hash);
-	$secret = \Sodium\crypto_sign_secretkey($kp);
-	$public = \Sodium\crypto_sign_publickey($kp);
+	$kp = sodium_crypto_sign_seed_keypair($hash);
+	$secret = sodium_crypto_sign_secretkey($kp);
+	$public = sodium_crypto_sign_publickey($kp);
 	if ($string) {
 		$keys = array('public' => bin2hex($public),'secret' => bin2hex($secret));
 	} else {
@@ -31,7 +120,7 @@ function getKeysFromSecret($secret,$string=false) {
 
 function signTx($transaction, $keys) {
 	$hash = hex2bin(getSignedTxBody($transaction));
-	$signature = \Sodium\crypto_sign_detached($hash, $keys['secret']);
+	$signature = sodium_crypto_sign_detached($hash, $keys['secret']);
 	return $signature;
 }
 
@@ -210,6 +299,15 @@ function strtohex($string){
         $hex .= substr('0'.$hexCode, -2);
     }
     return strToUpper($hex);
+}
+
+
+function hextostr($hex){
+    $string='';
+    for ($i=0; $i < strlen($hex)-1; $i+=2){
+        $string .= chr(hexdec($hex[$i].$hex[$i+1]));
+    }
+    return $string;
 }
 
 

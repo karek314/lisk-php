@@ -32,15 +32,15 @@ Method:help
 Networking:https://node06.lisk.io/
 
 Help Message
-	lisk-php - Interface to interact with Lisk network via PHP
-	CLI Tool and library for php projects
-	Copyright 2017 Karek314
+  lisk-php - Interface to interact with Lisk network via PHP
+  CLI Tool and library for php projects
+  Copyright 2017 Karek314
 
 CLI USAGE:
-	php lisk-cli.php METHOD parm1 parm2 parm3...
+  php lisk-cli.php METHOD parm1 parm2 parm3...
 
 INFO:
-	Each METHOD can be executed without any parms to get more detailed help information which parms are needed.
+  Each METHOD can be executed without any parms to get more detailed help information which parms are needed.
 
 METHODS:
   help                  Display this help message
@@ -49,6 +49,10 @@ METHODS:
   Create2ndPassphrase   Generates second signature to specified account
   RegisterDelegate      Registers delegate with specified name
   Vote                  Vote for specified delegates with publicKey
+  SignMessage           Signs message with specified account
+  VerifyMessage         Verify signed message and displays it
+  EncryptMessage        Encrypts message with recipient publickey
+  DecryptMessage        Decrypts message with encrypted hex body, nonce and sender publickey
   getKeysFromSecret     Generates public and secret from passphrase
   CreateTransaction     Creates signed, ready to broadcast transaction
   SendTransaction       Creates signed, ready to broadcast transaction and then broadcast it
@@ -129,7 +133,7 @@ require_once('main.php');
  
  ## Contributing
 If you want to contribute, fork and pull request or open issue.
-  		  
+        
 
 ## License
 Licensed under the [MIT license](https://github.com/karek314/lisk-php/blob/master/LICENSE)

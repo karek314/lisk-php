@@ -414,6 +414,92 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         echo 'php lisk-cli.php Vote +b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84-d112f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84+3302f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84 "word word word" "word2 word2 word2"';
         newline();
     }
+} else if($cmd == strtolower('SignMessage')){
+    if ($parm1 && $parm2){
+        newline();
+        echo 'Message to sign:'.$parm1;
+        $smsg = signMessage($parm1,$parm2,$parm3);
+        newline();
+        echo $smsg;
+        newline();
+        newline();
+    } else{
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php SignMessage "message to sign" "passphrase" Optionally("passphrase2")';
+        newline();
+        echo 'php lisk-cli.php SignMessage "I do hereby confirm... something" "word word word" "word2 word2 word2"';
+        newline();
+    }
+} else if($cmd == strtolower('VerifyMessage')){
+    if ($parm1 && $parm2){
+        newline();
+        echo 'Signed Message:'.$parm1;
+        newline();
+        echo 'Public Key:'.$parm2;
+        $msg = VerifyMessage($parm1,$parm2,$parm3);
+        newline();
+        echo 'Original Message->';
+        newline();
+        echo $msg;
+        newline();
+        newline();
+    } else{
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php VerifyMessage SignedMessage PublicKey Optionally(publicKey2)';
+        newline();
+        echo 'php lisk-cli.php VerifyMessage 6753b2cd9e6c1ccc79441936af0595ee3040c046bd623496a87381f2a5c8cd5231a6ac104c1fca436227bcc77e8b38e60bb676198be2e097e208d6550f8bd005313233 3e6afd3d2d40df370fc430147b6d5122acd2673af2ebfd01fcd054f35980b0f0';
+        newline();
+    }
+} else if($cmd == strtolower('EncryptMessage')){
+    if ($parm1 && $parm2 && $parm3){
+        newline();
+        echo 'Plain Message:'.$parm1;
+        newline();
+        echo 'Public Key:'.$parm3;
+        $msg = EncryptMessage($parm1,$parm2,$parm3);
+        newline();
+        echo 'Original Message->';
+        newline();
+        var_dump($msg);
+        newline();
+        newline();
+    } else{
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php EncryptMessage "Message" "Passphrase" recipientPublicKey';
+        newline();
+        echo 'php lisk-cli.php EncryptMessage "secret message" "word word word" 3e6afd3d2d40df370fc430147b6d5122acd2673af2ebfd01fcd054f35980b0f0';
+        newline();
+    }
+} else if($cmd == strtolower('DecryptMessage')){
+    if ($parm1 && $parm2 && $parm3 && $parm4){
+        newline();
+        echo 'Encrypted Message:'.$parm1;
+        newline();
+        echo 'Message Nonce:'.$parm2;
+        newline();
+        echo 'Sender Public Key:'.$parm4;
+        $msg = DecryptMessage($parm1,$parm2,$parm3,$parm4);
+        newline();
+        echo 'Original Message->';
+        newline();
+        var_dump($msg);
+        newline();
+        newline();
+    } else{
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php DecryptMessage "Encrypted Message" "Message Nonce" "Passphrase" SenderPublicKey';
+        newline();
+        echo 'php lisk-cli.php DecryptMessage d3f60c5423df43b515d198e459636ed309363cc115d96a79a81f83c9 929a89c5d4a926ac5ec188a3e4a043de79e4c3f08380e9ca "twelve remember resist marine display congress when demise kiwi blur actor biology" 886aad2cdd821657e719bc5a280655a748c2a4a2ba65afa62e58e7607ee52fe7';
+        newline();
+    }
 } else if ($cmd == strtolower('help')) {
 	help_message();
 } else {
@@ -468,6 +554,14 @@ function help_message(){
 	newline();
 	echo "\tVote                  Vote for specified delegates with publicKey";
 	newline();
+    echo "\tSignMessage           Signs message with specified account";
+    newline();
+    echo "\tVerifyMessage         Verify signed message and displays it";
+    newline();
+    echo "\tEncryptMessage        Encrypts message with recipient publickey";
+    newline();
+    echo "\tDecryptMessage        Decrypts message with encrypted hex body, nonce and sender publickey";
+    newline();
 	echo "\tgetKeysFromSecret     Generates public and secret from passphrase";
 	newline();
 	echo "\tCreateTransaction     Creates signed, ready to broadcast transaction";
