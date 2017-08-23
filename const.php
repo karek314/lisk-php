@@ -31,6 +31,7 @@ const BLOCKS_ENDPOINT = "api/blocks/";
 const VOTERS_ENDPOINT = "api/delegates/voters?publicKey=";
 const DELEGATE_ENDPOINT = "api/delegates/";
 
+
 const LSK_BASE = 100000000;
 const SEND_FEE = 0.1 * LSK_BASE;
 const DATA_FEE = 0.1 * LSK_BASE;
@@ -40,6 +41,15 @@ const VOTE_FEE = 1 * LSK_BASE;
 const MULTISIG_FEE = 5 * LSK_BASE;
 const DAPP_FEE = 25 * LSK_BASE;
 
+
 const SEND_TRANSACTION_FLAG = 0;
 const SECOND_SIG_TRANSACTION_FLAG = 1;
+const DELEGATE_TRANSACTION_FLAG = 2;
+const VOTE_TRANSACTION_FLAG = 3;
+const MULTISIG_TRANSACTION_FLAG = 4;
+const DAPP_TRANSACTION_FLAG = 5;
+const DAPP_IN_TRANSACTION_FLAG = 6;
+const DAPP_OUT_TRANSACTION_FLAG = 7;
+
+
 ?>

@@ -341,6 +341,79 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         echo 'php lisk-cli.php Create2ndPassphrase "word word word" 1 "word2 word2 word2"';
         newline();
     }
+} else if($cmd == strtolower('RegisterDelegate')){
+    if ($parm1 && $parm2){
+        newline();
+        echo 'Delegate Name:'.$parm1;
+       	$tx = RegisterDelegate($parm1,$parm2,$parm3);
+       	newline();
+       	echo "Transaction->";
+		var_dump($tx);
+		newline();
+		bold_echo("Response->");
+		var_dump(SendTransaction(json_encode($tx),$server));
+        newline();
+        newline();
+    } else{
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php RegisterDelegate NAME "passphrase1" Optionally("passphrase2")';
+        newline();
+        echo 'Examples';
+        newline();
+        echo 'php lisk-cli.php RegisterDelegate SuperDelegate1 "word word word"';
+        newline();
+        echo 'php lisk-cli.php RegisterDelegate SuperDelegate2 "word word word" "word2 word2 word2"';
+        newline();
+    }
+} else if($cmd == strtolower('Vote')){
+    if ($parm1 && $parm2){
+        newline();
+        $votes = $parm1;
+        $votes_count = substr_count($votes,'+')+substr_count($votes,'-');
+        if ($votes_count > 1) {
+        	$votes = preg_split("/(\\+|-)/", $votes);
+        	$tvotes = array();
+        	foreach ($votes as $key => $value) {
+        		if (strlen($value)==64) {
+					if (strpos($parm1, '+'.$value) !== false) {
+						$tvotes[] = '+'.$value;
+					} else if (strpos($parm1, '-'.$value) !== false) {
+						$tvotes[] = '-'.$value;
+					}
+        		}
+        	}
+        	$votes = $tvotes;
+        } else {
+        	$votes = array($votes);
+        }
+       	$tx = Vote($votes,$parm2,$parm3);
+       	newline();
+       	echo "Transaction->";
+		var_dump($tx);
+		newline();
+		bold_echo("Response->");
+		var_dump(SendTransaction(json_encode($tx),$server));
+        newline();
+        newline();
+    } else{
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php Vote VOTES "passphrase1" Optionally("passphrase2")';
+        newline();
+        echo 'Examples';
+        newline();
+        echo 'Single vote';
+        newline();
+        echo 'php lisk-cli.php Vote +b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84 "word word word"';
+        newline();
+        echo 'Multiple votes (+publicKey-publicKey+publicKey and so on...)';
+        newline();
+        echo 'php lisk-cli.php Vote +b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84-d112f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84+3302f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84 "word word word" "word2 word2 word2"';
+        newline();
+    }
 } else if ($cmd == strtolower('help')) {
 	help_message();
 } else {
@@ -390,6 +463,10 @@ function help_message(){
 	echo "\tVanitygen             Generates new bip39 account with desired prefix";
 	newline();
 	echo "\tCreate2ndPassphrase   Generates second signature to specified account";
+	newline();
+	echo "\tRegisterDelegate      Registers delegate with specified name";
+	newline();
+	echo "\tVote                  Vote for specified delegates with publicKey";
 	newline();
 	echo "\tgetKeysFromSecret     Generates public and secret from passphrase";
 	newline();

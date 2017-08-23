@@ -163,6 +163,30 @@ function getTxAssetBytes($transaction){
 		}
 		$tmp = array('assetBytes' => $byteBuffer,
 					 'assetSize' => 32);
+	} else if ($transaction['type'] == DELEGATE_TRANSACTION_FLAG) {
+		$username = strtohex($transaction['asset']['delegate']['username']);
+		$hexBuffer = str_split($username,2);
+		$byteBuffer = array();
+		foreach ($hexBuffer as $key => $value) {
+			$byte = bchexdec($value);
+			$byteBuffer[] = $byte;
+		}
+		$tmp = array('assetBytes' => $byteBuffer,
+					 'assetSize' => count($byteBuffer));
+	} else if ($transaction['type'] == VOTE_TRANSACTION_FLAG) {
+		$votes = $transaction['asset']['votes'];
+		$votes = implode('',$votes);
+		//$votes = str_replace('+', '2B', $votes);
+		//$votes = str_replace('-', '2D', $votes);
+		$votes = strTohex($votes);
+		$hexBuffer = str_split($votes,2);
+		$byteBuffer = array();
+		foreach ($hexBuffer as $key => $value) {
+			$byte = bchexdec($value);
+			$byteBuffer[] = $byte;
+		}
+		$tmp = array('assetBytes' => $byteBuffer,
+					 'assetSize' => count($byteBuffer));
 	}
 	return $tmp;
 }
@@ -175,6 +199,17 @@ function bchexdec($hex){
         $dec = bcadd($dec, bcmul(strval(hexdec($hex[$i - 1])), bcpow('16', strval($len - $i))));
     }
     return $dec;
+}
+
+
+function strtohex($string){
+    $hex = '';
+    for ($i=0; $i<strlen($string); $i++){
+        $ord = ord($string[$i]);
+        $hexCode = dechex($ord);
+        $hex .= substr('0'.$hexCode, -2);
+    }
+    return strToUpper($hex);
 }
 
 
