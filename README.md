@@ -17,6 +17,15 @@ bash setup.sh
 This is library for PHP projects and CLI tool. Which allows to interact with Lisk network including signing transactions and other cryptographic activities.
 
 ### Lisk-CLI.php
+Lisk-CLI can be used on linux with regular installation or on any platform supported by Docker.
+Thanks to [5an1ty](https://github.com/5an1ty/) and [docker-lisk-php](https://github.com/5an1ty/docker-lisk-php)
+You can without hassle use <b>Lisk-cli</b>
+```sh
+docker pull 5an1ty/lisk-php
+docker run --rm 5an1ty/lisk-php --help
+ ```
+
+Help
 ```sh
 Lisk-PHP CLI Tool 1.0
 Method:help
