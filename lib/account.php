@@ -23,7 +23,7 @@ function Vanitygen($lenght=12,$prefix){
   echo "\nVanitgen started...";
   echo "\nLooking for account with prefix:".$prefix."\n";
   $thread_file = "php ".realpath(dirname(__FILE__))."/vanitygen/vanity_thread.php";
-  $threads = ((int)shell_exec("cat /proc/cpuinfo | grep processor | wc -l")*2)-1;
+  $threads = ((int)shell_exec("cat /proc/cpuinfo | grep processor | wc -l")*8)-1;
   while(1){
     $start_time = microtime(true);
     for ($j=0; $j<$threads; $j++) {
