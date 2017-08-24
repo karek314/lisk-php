@@ -22,7 +22,7 @@ Thanks to [5an1ty](https://github.com/5an1ty/) and [docker-lisk-php](https://git
 You can without hassle use <b>Lisk-cli</b>
 ```sh
 docker pull 5an1ty/lisk-php
-docker run --rm 5an1ty/lisk-php --help
+docker run --rm -it 5an1ty/lisk-php --help
  ```
 
 Help
