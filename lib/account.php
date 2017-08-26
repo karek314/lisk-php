@@ -15,7 +15,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 
 
-function Vanitygen($lenght=12,$prefix){
+function Vanitygen($lenght=12,$prefix,$t=1){
   $start = new DateTime();
   //Function designed only for CLI use
   $i = 0;
@@ -23,7 +23,7 @@ function Vanitygen($lenght=12,$prefix){
   echo "\nVanitgen started...";
   echo "\nLooking for account with prefix:".$prefix."\n";
   $thread_file = "php ".realpath(dirname(__FILE__))."/vanitygen/vanity_thread.php";
-  $threads = ((int)shell_exec("cat /proc/cpuinfo | grep processor | wc -l")*8)-1;
+  $threads = ((int)shell_exec("cat /proc/cpuinfo | grep processor | wc -l")*8*$t)-1;
   while(1){
     $start_time = microtime(true);
     for ($j=0; $j<$threads; $j++) {

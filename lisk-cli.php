@@ -274,7 +274,15 @@ if ($cmd == strtolower('getKeysFromSecret')) {
 } else if($cmd == strtolower('Vanitygen')){
     if ($parm1){
         newline();
-       	$account = Vanitygen($parm1,$parm2);
+        if ($parm3) {
+           if (is_numeric($parm3)){
+                $account = Vanitygen($parm1,$parm2,$parm3);
+           } else {
+                die("Parm3 must be number");
+           }
+        } else {
+            $account = Vanitygen($parm1,$parm2);
+        }
        	newline();
         echo "Found account with [".$parm2."] prefix->";
         newline();
