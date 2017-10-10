@@ -39,6 +39,23 @@ function DecryptMessage($message, $nonce, $passphrase, $senderPublicKey) {
 }
 
 
+function encryptPassphrase($passphrase, $password) {
+  $key = hash('sha256', $password, true);
+  $iv = bin2hex(random_bytes(16));
+  $padding = 16 - (strlen($passphrase) % 16);
+  $passphrase .= str_repeat(chr($padding), $padding);
+  return array('iv' => $iv, 'encrypted' => bin2hex(mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $key, $passphrase, MCRYPT_MODE_CBC, hex2bin($iv))));
+}
+
+
+function decryptPassphrase($encrypted, $iv, $password) {
+  $key = hash('sha256', $password, true);
+  $data = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $key, hex2bin($encrypted), MCRYPT_MODE_CBC, hex2bin($iv));
+  $padding = ord($data[strlen($data) - 1]);
+  return substr($data, 0, -$padding);
+}
+
+
 function VerifyMessage($signedMessage, $publicKey1, $publicKey2=false) {
 	if (strlen($publicKey1) != 64) {
 		return "Invalid publicKey lenght.";

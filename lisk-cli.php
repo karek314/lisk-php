@@ -508,6 +508,79 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         echo 'php lisk-cli.php DecryptMessage d3f60c5423df43b515d198e459636ed309363cc115d96a79a81f83c9 929a89c5d4a926ac5ec188a3e4a043de79e4c3f08380e9ca "twelve remember resist marine display congress when demise kiwi blur actor biology" 886aad2cdd821657e719bc5a280655a748c2a4a2ba65afa62e58e7607ee52fe7';
         newline();
     }
+} else if($cmd == strtolower('EncryptPassphrase')){
+    if ($parm1 && $parm2){
+        newline();
+        echo 'Password:'.$parm2;
+        newline();
+        echo 'Plain Passphrase:'.$parm1;
+        newline();
+        $output = getKeysFromSecret($parm1,true);
+        echo 'Public Key:'.$output['public'];
+        $output = encryptPassphrase($parm1,$parm2);
+        newline();
+        echo 'Encrypted->';
+        newline();
+        var_dump($output);
+        newline();
+        newline();
+    } else{
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php EncryptPassphrase "Passphrase" "password"';
+        newline();
+        echo 'php lisk-cli.php EncryptPassphrase "word word word" "password"';
+        newline();
+    }
+} else if($cmd == strtolower('DecryptPassphrase')){
+    if ($parm1 && $parm2 && $parm3){
+        newline();
+        echo 'Encrypted Message:'.$parm1;
+        newline();
+        echo 'Iv:'.$parm2;
+        newline();
+        echo 'Password:'.$parm3;
+        newline();
+        $output = decryptPassphrase($parm1,$parm2,$parm3);
+        newline();
+        echo 'Passphrase->';
+        newline();
+        var_dump($output);
+        newline();
+        newline();
+    } else{
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php DecryptPassphrase "Encrypted passphrase" "IV" "Password"';
+        newline();
+        echo 'php lisk-cli.php DecryptPassphrase 886aad2cdd821657e719bc5a280655a748c2a4a2ba65afa62e58e7607ee52fe7 1b80236a62151f02cc88abf99568eb2d "test"';
+        newline();
+    }
+} else if($cmd == strtolower('ToggleForging')){
+    if ($parm1 && $parm2){
+        newline();
+        echo 'Password:'.$parm1;
+        newline();
+        echo 'Public Key:'.$parm2;
+        newline();
+        $output = ToggleForging($parm1,$parm2,$server);
+        newline();
+        echo 'Forging->';
+        newline();
+        var_dump($output);
+        newline();
+        newline();
+    } else{
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php ToggleForging "password" "public key"';
+        newline();
+        echo 'php lisk-cli.php ToggleForging "test password" 886aad2cdd821657e719bc5a280655a748c2a4a2ba65afa62e58e7607ee52fe7';
+        newline();
+    }
 } else if ($cmd == strtolower('help')) {
 	help_message();
 } else {
@@ -599,6 +672,12 @@ function help_message(){
     echo "\tGetDelegatesList      Get delegates list";
     newline();
     echo "\tGetVotes              Get account votes";
+    newline();
+    echo "\tToggleForging         Toggle On/Off forging on specified account";
+    newline();
+    echo "\tEncryptPassphrase     Encrypts specified passphrase for forging toggle";
+    newline();
+    echo "\tDecryptPassphrase     Decrypts specified passphrase for forging toggle";
     newline();
 	newline();
 }

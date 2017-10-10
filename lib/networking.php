@@ -21,6 +21,12 @@ function GetDelegateInfo($pk,$server){
 }
 
 
+function ToggleForging($password,$pk,$server){
+  $url = $server.FORGING_ENDPOINT;
+  return MainFunction("PUT",$url,'{"key": "'.$password.'","publicKey": "'.$pk.'"}',true,true,5);
+}
+
+
 function GetVotersFor($pk,$server){
 	$url = $server.VOTERS_ENDPOINT.$pk;
 	return MainFunction("GET",$url,false,false,true,5);
@@ -120,10 +126,10 @@ function MainFunction($method,$url,$body=false,$jsonBody=true,$jsonResponse=true
   curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
   $headers =  array();
   if ($body) {  
- 	curl_setopt($ch, CURLOPT_POSTFIELDS, $body);                                                             
-	if ($jsonBody) {
-		$headers = array('Content-Type: application/json','Content-Length: ' . strlen($body)); 
-	}
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $body);                                                             
+	  if ($jsonBody) {
+		  $headers = array('Content-Type: application/json','Content-Length: ' . strlen($body)); 
+    }
   }
   $port = parse_url($url)['port'];
   if (!$port) {

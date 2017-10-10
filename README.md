@@ -68,6 +68,9 @@ METHODS:
   GetForgedByAccount    Get amount of Lisk forged by an delegate
   GetDelegatesList      Get delegates list
   GetVotes              Get account votes
+  ToggleForging         Toggle On/Off forging on specified account
+  EncryptPassphrase     Encrypts specified passphrase for forging toggle
+  DecryptPassphrase     Decrypts specified passphrase for forging toggle
   ```
   
   <b>Lisk vanitygen</b><br>
