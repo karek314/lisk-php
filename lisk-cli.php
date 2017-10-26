@@ -139,7 +139,22 @@ if ($cmd == strtolower('getKeysFromSecret')) {
 		echo 'php lisk-cli.php GetVotersFor b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84';
 		newline();
 	}
-} else if ($cmd == strtolower('GetDelegateInfo')) {
+} else if ($cmd == strtolower('GetDelegateList')) {
+    if ($parm1 && $parm2){
+        newline();
+        echo "List->";
+        var_dump(GetDelegateList($parm1,$parm2,$server));
+        newline();  
+    } else {
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php GetDelegateList limit offset';
+        newline();
+        echo 'php lisk-cli.php GetDelegateList 5 101';
+        newline();
+    }
+} else if ($cmd == strtolower('GetDelegateInfo')) {//GetDelegateList
 	if ($parm1){
 		newline();
 		echo "Info->";
@@ -678,6 +693,8 @@ function help_message(){
     echo "\tEncryptPassphrase     Encrypts specified passphrase for forging toggle";
     newline();
     echo "\tDecryptPassphrase     Decrypts specified passphrase for forging toggle";
+    newline();
+    echo "\tGetDelegateList       Get list of delegates";
     newline();
 	newline();
 }

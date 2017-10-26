@@ -31,6 +31,7 @@ const BLOCKS_ENDPOINT = "api/blocks/";
 const VOTERS_ENDPOINT = "api/delegates/voters?publicKey=";
 const DELEGATE_ENDPOINT = "api/delegates/";
 const FORGING_ENDPOINT = "api/delegates/forging";
+const DELEGATES_LIST_ENDPOINT = "api/delegates/";
 
 
 const LSK_BASE = 100000000;

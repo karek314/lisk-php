@@ -71,6 +71,7 @@ METHODS:
   ToggleForging         Toggle On/Off forging on specified account
   EncryptPassphrase     Encrypts specified passphrase for forging toggle
   DecryptPassphrase     Decrypts specified passphrase for forging toggle
+  GetDelegateList       Get list of delegates
   ```
   
   <b>Lisk vanitygen</b><br>

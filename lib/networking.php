@@ -21,6 +21,12 @@ function GetDelegateInfo($pk,$server){
 }
 
 
+function GetDelegateList($limit,$offset,$server){
+  $url = $server.DELEGATE_ENDPOINT."?limit=".$limit."&offset=".$offset;
+  return MainFunction("GET",$url,false,false,true,4);
+}
+
+
 function ToggleForging($password,$pk,$server){
   $url = $server.FORGING_ENDPOINT;
   return MainFunction("PUT",$url,'{"key": "'.$password.'","publicKey": "'.$pk.'"}',true,true,5);
