@@ -15,13 +15,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 
 
-function Vanitygen($lenght=12,$prefix,$t=1){
+function Vanitygen($lenght=12,$prefix,$t=1,$special=true){
   $start = new DateTime();
   //Function designed only for CLI use
   $i = 0;
   $prefix_lenght = strlen($prefix);
   echo "\nVanitgen started...";
   echo "\nLooking for account with prefix:".$prefix."\n";
+  if ($special) {
+    echo "Special Mode, printing special accounts until desired account is found.\n";
+  }
   $thread_file = "php ".realpath(dirname(__FILE__))."/vanitygen/vanity_thread.php";
   $threads = ((int)shell_exec("cat /proc/cpuinfo | grep processor | wc -l")*8*$t)-1;
   while(1){
@@ -34,6 +37,12 @@ function Vanitygen($lenght=12,$prefix,$t=1){
       $response = json_decode(stream_get_contents($pipe[$j]),true);
       pclose($pipe[$j]);
       $address = $response['address'];
+      if (strlen($address) < 18) {
+        PrintAccount($response,"Short address, less than 18 characters (".strlen($address).")");
+      }
+      if (IsSpecial($address)) {
+        PrintAccount($response,"Multiple similar occurrences");
+      }
       $curr_prefix = substr($address,0,$prefix_lenght);
       if ($curr_prefix == $prefix) {
         return $response;
@@ -45,6 +54,28 @@ function Vanitygen($lenght=12,$prefix,$t=1){
     $interval = $start->diff($current);
     $elapsed_time = $interval->format('%d')."d ".$interval->format('%h')."h ".$interval->format('%i')."min ".$interval->format('%s')."s";
     echo "\033[K\r[Done:".$i."] [Accounts per sec: ".number_format((float)$acc_per_sec, 3, '.', '')."] [Elapsed time: ".$elapsed_time."]";
+  }
+}
+
+
+function PrintAccount($account,$reason){
+  echo "\n################ ".$reason." ################";
+  echo "\nPassphrase:".$account['passphrase'];
+  echo "\nAddress:".$account['address']."\n\n";
+}
+
+
+function IsSpecial($address){
+  $speciality = 0;
+  foreach (count_chars($str, 1) as $chr => $value) {
+    if ($value >= 4) {
+      $speciality += $value;
+    }
+  }
+  if ($speciality >= 8) {
+    return true;
+  } else {
+    return false;
   }
 }
 
