@@ -37,7 +37,7 @@ function Vanitygen($lenght=12,$prefix,$t=1,$special=true){
       $response = json_decode(stream_get_contents($pipe[$j]),true);
       pclose($pipe[$j]);
       $address = $response['address'];
-      if (strlen($address) < 18) {
+      if (strlen($address) < 17) {
         PrintAccount($response,"Short address, less than 18 characters (".strlen($address).")");
       }
       if (IsSpecial($address)) {
