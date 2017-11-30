@@ -15,7 +15,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 
 
-function Vanitygen($lenght=12,$prefix,$t=1,$special=true){
+function Vanitygen($lenght=12,$prefix,$t=1,$special=true,$special_lenght=17,$speciality=4){
   $start = new DateTime();
   //Function designed only for CLI use
   $i = 0;
@@ -37,10 +37,10 @@ function Vanitygen($lenght=12,$prefix,$t=1,$special=true){
       $response = json_decode(stream_get_contents($pipe[$j]),true);
       pclose($pipe[$j]);
       $address = $response['address'];
-      if (strlen($address) < 17) {
-        PrintAccount($response,"Short address, less than 17 characters (".strlen($address).")");
+      if (strlen($address) < $special_lenght) {
+        PrintAccount($response,"Short address, less than ".$special_lenght." characters (".strlen($address).")");
       }
-      if (IsSpecial($address)) {
+      if (IsSpecial($address,$speciality)) {
         PrintAccount($response,"Multiple similar occurrences");
       }
       $curr_prefix = substr($address,0,$prefix_lenght);
@@ -65,14 +65,14 @@ function PrintAccount($account,$reason){
 }
 
 
-function IsSpecial($address){
+function IsSpecial($address,$speciality_def){
   $speciality = 0;
   foreach (count_chars($str, 1) as $chr => $value) {
-    if ($value >= 4) {
+    if ($value >= $speciality_def) {
       $speciality += $value;
     }
   }
-  if ($speciality >= 8) {
+  if ($speciality >= $speciality_def*2) {
     return true;
   } else {
     return false;

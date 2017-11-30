@@ -291,7 +291,12 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         newline();
         if ($parm3) {
            if (is_numeric($parm3)){
-                $account = Vanitygen($parm1,$parm2,$parm3);
+                if ($parm4 && $parm5) {
+                    //Vanitygen($lenght=12,$prefix,$t=1,$special=true,$special_lenght=17,$speciality=4)
+                    $account = Vanitygen($parm1,$parm2,$parm3,true,$parm4,$parm5);
+                } else {
+                    $account = Vanitygen($parm1,$parm2,$parm3);
+                }
            } else {
                 die("Parm3 must be number");
            }
@@ -314,9 +319,13 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         newline();
         method_info();
         newline();
-        echo 'php lisk-cli.php GenerateAccount SeedLenght(12,15,21,24) Prefix';
+        echo 'php lisk-cli.php Vanitygen SeedLenght(12,15,21,24) Prefix';
         newline();
-        echo 'php lisk-cli.php GenerateAccount 12 958';
+        echo 'php lisk-cli.php Vanitygen 12 958';
+        newline();
+        echo 'php lisk-cli.php Vanitygen SeedLenght(12,15,21,24) Prefix 1 17 4';
+        newline();
+        echo 'php lisk-cli.php Vanitygen 12 958 1 17 4';
         newline();
         echo 'Each character added as prefix in address generation will increase time to find exponentially. Currently Lisk addresses are numeric hence only numbers allowed.';
         newline();
