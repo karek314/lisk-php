@@ -38,7 +38,7 @@ function Vanitygen($lenght=12,$prefix,$t=1,$special=true){
       pclose($pipe[$j]);
       $address = $response['address'];
       if (strlen($address) < 17) {
-        PrintAccount($response,"Short address, less than 18 characters (".strlen($address).")");
+        PrintAccount($response,"Short address, less than 17 characters (".strlen($address).")");
       }
       if (IsSpecial($address)) {
         PrintAccount($response,"Multiple similar occurrences");
