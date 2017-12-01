@@ -15,7 +15,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 
 
-function Vanitygen($lenght=12,$prefix,$t=1,$special=true,$special_lenght=17,$speciality=4){
+function Vanitygen($lenght=12,$prefix,$t=1,$special=true,$special_lenght=17,$speciality=6){
   $start = new DateTime();
   //Function designed only for CLI use
   $i = 0;
@@ -67,7 +67,7 @@ function PrintAccount($account,$reason){
 
 function IsSpecial($address,$speciality_def){
   $speciality = 0;
-  foreach (count_chars($str, 1) as $chr => $value) {
+  foreach (count_chars($address, 1) as $chr => $value) {
     if ($value >= $speciality_def) {
       $speciality += $value;
     }
