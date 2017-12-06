@@ -217,8 +217,7 @@ function assignTransactionBuffer($transaction, $assetSize, $assetBytes, $options
 				for ($i = 0; $i < 8-$c; $i++) {
 					$transactionBuffer->writeBytes([0]);
 				}
-				$cn = abs($c-8);
-				for ($i = 1; $i <= $cn; $i++) {
+				for ($i = 1; $i <= $c; $i++) {
 					$transactionBuffer->writeBytes([$bytes[$i]]);
 				}
 			} else {
