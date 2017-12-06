@@ -212,11 +212,22 @@ function assignTransactionBuffer($transaction, $assetSize, $assetBytes, $options
 			$recipient = substr($recipient, 0, -1);
 			$recipient_bi = new Math_BigInteger($recipient);
 			$bytes = unpack('C*',$recipient_bi->toBytes());
-			for ($i = 1; $i <= 8; $i++) {
-				$transactionBuffer->writeBytes([$bytes[$i]]);
+			$c = count($bytes);
+			if ($c!=8) {
+				for ($i = 0; $i < 8-$c; $i++) {
+					$transactionBuffer->writeBytes([0]);
+				}
+				$cn = abs($c-8);
+				for ($i = 1; $i <= $cn; $i++) {
+					$transactionBuffer->writeBytes([$bytes[$i]]);
+				}
+			} else {
+				for ($i = 1; $i <= 8; $i++) {
+					$transactionBuffer->writeBytes([$bytes[$i]]);
+				}
 			}
 		} else {
-			for ($i = 0; $i < 8; $i++) {
+			for ($i = 0; $i <= 8; $i++) {
 				$transactionBuffer->writeBytes([0]);
 			}
 		}
