@@ -605,6 +605,15 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         echo 'php lisk-cli.php ToggleForging "test password" 886aad2cdd821657e719bc5a280655a748c2a4a2ba65afa62e58e7607ee52fe7';
         newline();
     }
+} else if ($cmd == strtolower('GetPendingTx')) {
+    newline();
+    $output = GetPendingTx($server);
+    newline();
+    echo 'Pending tx list->';
+    newline();
+    var_dump($output);
+    newline();
+    newline();
 } else if ($cmd == strtolower('help')) {
 	help_message();
 } else {
@@ -704,6 +713,8 @@ function help_message(){
     echo "\tDecryptPassphrase     Decrypts specified passphrase for forging toggle";
     newline();
     echo "\tGetDelegateList       Get list of delegates";
+    newline();
+    echo "\tGetPendingTx          Get list of pending transactions";
     newline();
 	newline();
 }

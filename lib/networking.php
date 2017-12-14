@@ -21,6 +21,12 @@ function GetDelegateInfo($pk,$server){
 }
 
 
+function GetPendingTx($server){
+  $url = $server.PENDING_TX_ENDPOINT;
+  return MainFunction("GET",$url,false,false,true,5);
+}
+
+
 function GetDelegateList($limit,$offset,$server){
   $url = $server.DELEGATE_ENDPOINT."?limit=".$limit."&offset=".$offset;
   return MainFunction("GET",$url,false,false,true,4);

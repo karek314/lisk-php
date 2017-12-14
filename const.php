@@ -32,6 +32,7 @@ const VOTERS_ENDPOINT = "api/delegates/voters?publicKey=";
 const DELEGATE_ENDPOINT = "api/delegates/";
 const FORGING_ENDPOINT = "api/delegates/forging";
 const DELEGATES_LIST_ENDPOINT = "api/delegates/";
+const PENDING_TX_ENDPOINT = "api/transactions/unconfirmed";
 
 
 const LSK_BASE = 100000000;
