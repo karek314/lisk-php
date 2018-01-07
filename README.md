@@ -88,6 +88,7 @@ Address:13122233654116561038L
 Public:553538b4dd31a4996cfa143713661bdcdf4ec27c9e8155159d3eefdf480acfe2
 Secret:168b85c9704dc8c1c87d74db4f0dc95869af5fd05c8ae43bc9e8273855f90bd8553538b4dd31a4996cfa143713661bdcdf4ec27c9e8155159d3eefdf480acfe2
   ```
+ Vanitygen feature in Lisk-Php should be considered more like side feature, it's not efficent but still can find some more unique catchy addresses.
 
 
   Generate new account with 24 words seed
