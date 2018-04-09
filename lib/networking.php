@@ -16,7 +16,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
 function GetDelegateInfo($pk,$server){
-	$url = $server.DELEGATE_ENDPOINT.'get?publicKey='.$pk;
+	$url = $server.DELEGATE_ENDPOINT.'?publicKey='.$pk;
 	return MainFunction("GET",$url,false,false,true,4);
 }
 
@@ -45,28 +45,6 @@ function GetVotersFor($pk,$server){
 }
 
 
-function GetForgedByAccount($pk, $server,$start=false,$end=false){
-    if ($start && $end) {
-      if (is_numeric($start)) {
-        $startTimestamp = $start;
-      } else {
-        $startTab = strptime($start, '%d-%m-%Y %k:%M:%S');
-        $startTimestamp = mktime($startTab['tm_hour'], $startTab['tm_min'], $startTab['tm_sec'], $startTab['tm_mon']+1, $startTab['tm_mday'], $startTab['tm_year']+1900);
-      }
-      if (is_numeric($end)) {
-        $endTimestamp = $end;
-      } else {
-        $endTab = strptime($end, '%d-%m-%Y %k:%M:%S'); //01-12-2017 0:59:59
-        $endTimestamp = mktime($endTab['tm_hour'], $endTab['tm_min'], $endTab['tm_sec'], $endTab['tm_mon']+1, $endTab['tm_mday'], $endTab['tm_year']+1900);
-      }
-      $url = $server.DELEGATE_ENDPOINT.'forging/getForgedByAccount?generatorPublicKey='.$pk.'&start='.$startTimestamp.'&end='.$endTimestamp;
-    } else {
-      $url = $server.DELEGATE_ENDPOINT.'forging/getForgedByAccount?generatorPublicKey='.$pk;
-    }
-    return MainFunction("GET",$url,false,false,true,5);
-}
-
-
 function GetDelegatesList($server, $limit=101, $orderBy="rate", $offset=0, $orderType="asc"){
     $url = $server.DELEGATE_ENDPOINT.'?limit='.$limit.'&offset='.$offset.'&orderBy='.$orderBy.':'.$orderType;
     return MainFunction("GET",$url,false,false,true,7);
@@ -74,7 +52,7 @@ function GetDelegatesList($server, $limit=101, $orderBy="rate", $offset=0, $orde
 
 
 function GetVotes($address,$server){
-    $url = $server.ACCOUNTS.'delegates/?address='.$address;
+    $url = $server.VOTES_ENDPOINT.$address;
     return MainFunction("GET",$url,false,false,true,5);
 }
 
@@ -86,25 +64,13 @@ function GetBlocksBy($pk,$server,$offset=0,$orderBy='height',$orderType='desc'){
 
 
 function GetBlock($id,$server){
-    $url = $server.BLOCKS_ENDPOINT.'get?id='.$id;
+    $url = $server.BLOCKS_ENDPOINT.'?blockId='.$id;
     return MainFunction("GET",$url,false,false,true,5);
 }
 
 
-function GetFees($server){
-    $url = $server.BLOCKS_ENDPOINT.'/getFees';
-    return MainFunction("GET",$url,false,false,true,5);
-}
-
-
-function GetSupply($server){
-    $url = $server.BLOCKS_ENDPOINT.'/getSupply';
-    return MainFunction("GET",$url,false,false,true,5);
-}
-
-
-function NetworkStatus($server){
-    $url = $server.BLOCKS_ENDPOINT.'/getStatus';
+function GetBlockchainInfo($server){
+    $url = $server.BCONST;
     return MainFunction("GET",$url,false,false,true,5);
 }
 
@@ -116,14 +82,14 @@ function AccountForAddress($address,$server){
 
 
 function NodeStatus($server){
-    $url = $server.NODE_STATUS;
+  $url = $server.NODE_STATUS;
 	return MainFunction("GET",$url,false,false,true,3);
 }
 
 
 function SendTransaction($transaction_string,$server){
 	$url = $server.SEND_TRANSACTION_ENDPOINT;
-	return MainFunction("POST",$url,$transaction_string,true,true,6);
+	return MainFunction("PUT",$url,$transaction_string,true,true,6);
 }
 
 

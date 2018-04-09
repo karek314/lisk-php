@@ -21,18 +21,20 @@ const SECURE = true;
 const MAINNET = true;
 const NETWORK_HASH = "ed14889723f24ecc54871d058d98ce91ff2f973192075c0155ba2b7b70ad2511"; //mainnet
 //const NETWORK_HASH = "da3ed6a45429278bac2666961289ca17ad86595d33b31037615d4b8e8f158bba"; //testnet
-const MINVERSION = ">=0.5.0";
+const MINVERSION = ">=1.0.0";
 const OS = "lisk-php-api";
 const API_VERSION = "1.0.0";
-const SEND_TRANSACTION_ENDPOINT = "peer/transactions";
-const NODE_STATUS = "api/loader/status/sync";
+const BCONST = "api/node/constants";
+const SEND_TRANSACTION_ENDPOINT = "api/transactions";
+const NODE_STATUS = "api/node/status";
 const ACCOUNTS = "api/accounts/";
 const BLOCKS_ENDPOINT = "api/blocks/";
-const VOTERS_ENDPOINT = "api/delegates/voters?publicKey=";
+const VOTERS_ENDPOINT = "api/voters?publicKey=";
+const VOTES_ENDPOINT = "api/votes?address=";
 const DELEGATE_ENDPOINT = "api/delegates/";
 const FORGING_ENDPOINT = "api/delegates/forging";
 const DELEGATES_LIST_ENDPOINT = "api/delegates/";
-const PENDING_TX_ENDPOINT = "api/transactions/unconfirmed";
+const PENDING_TX_ENDPOINT = "api/node/transactions/unconfirmed";
 
 
 const LSK_BASE = 100000000;

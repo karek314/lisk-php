@@ -185,45 +185,10 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         newline();
 
     }
-} else if ($cmd == strtolower('GetFees')){
+} else if ($cmd == strtolower('GetBlockchainInfo')){
         newline();
-        echo "Current blockchain fees->";
-        var_dump(GetFees($server));
-} else if ($cmd == strtolower('GetSupply')){
-        newline();
-        echo "Total Lisk Supply->";
-        var_dump(GetSupply($server));
-} else if($cmd == strtolower('NetworkStatus')){
-        newline();
-        echo "Network status->";
-        var_dump(NetworkStatus($server));
-} else if($cmd == strtolower('GetForgedByAccount')){
-    if ($parm1){
-        newline();
-        echo "Forged by delegate->";
-        var_dump(GetForgedByAccount($parm1,$server));
-        newline();
-    } else if($parm1 && $parm2 && $parm3){
-        newline();
-        echo "Forged by delegate->";
-        var_dump(GetForgedByAccount($parm1,$server,$parm2,$parm3));
-        newline();
-    } else {
-        newline();
-        method_info();
-        newline();
-        echo 'php lisk-cli.php GetForgedByAccount publicKey';
-        newline();
-        echo 'Optionally parameters: since...to in "dd-mm-yyyy h:mm:ss" format. (can be also timestamp)';
-        newline();
-        echo 'php lisk-cli.php GetForgedByAccount publicKey "01-07-2017 0:59:59" "31-07-2017 0:59:59"';
-        newline();
-        echo 'php lisk-cli.php GetForgedByAccount b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84';
-        newline();
-        echo 'php lisk-cli.php GetForgedByAccount b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84 "01-07-2017 0:59:59" "31-07-2017 0:59:59"';
-        newline();
-    }
-
+        echo "Current blockchain info->";
+        var_dump(GetBlockchainInfo($server));
 } else if($cmd == strtolower('GetDelegatesList')){
     newline();
     echo "First 101 delegates->";
@@ -694,13 +659,7 @@ function help_message(){
 	newline();
 	echo "\tGetDelegateInfo       Get delegate info";
     newline();
-    echo "\tGetFees               Get blockchain fees";
-    newline();
-    echo "\tGetSupply             Get Lisk supply";
-    newline();
-    echo "\tNetworkStatus         Get network height, epoch , fee, reward, supply";
-	newline();
-    echo "\tGetForgedByAccount    Get amount of Lisk forged by an delegate";
+    echo "\tGetBlockchainInfo     Get blockchain constants and info";
     newline();
     echo "\tGetDelegatesList      Get delegates list";
     newline();

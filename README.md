@@ -27,10 +27,6 @@ docker run --rm -it 5an1ty/lisk-php --help
 
 Help
 ```sh
-Lisk-PHP CLI Tool 1.0
-Method:help
-Networking:https://node06.lisk.io/
-
 Help Message
   lisk-php - Interface to interact with Lisk network via PHP
   CLI Tool and library for php projects
@@ -62,16 +58,14 @@ METHODS:
   GetBlocksBy           Get blocks forged by
   GetVotersFor          Get list of voters for delegate
   GetDelegateInfo       Get delegate info
-  GetFees               Get blockchain fees
-  GetSupply             Get Lisk supply
-  NetworkStatus         Get network height, epoch , fee, reward, supply
-  GetForgedByAccount    Get amount of Lisk forged by an delegate
+  GetBlockchainInfo     Get blockchain constants and info
   GetDelegatesList      Get delegates list
   GetVotes              Get account votes
   ToggleForging         Toggle On/Off forging on specified account
   EncryptPassphrase     Encrypts specified passphrase for forging toggle
   DecryptPassphrase     Decrypts specified passphrase for forging toggle
   GetDelegateList       Get list of delegates
+  GetPendingTx          Get list of pending transactions
   ```
   
   <b>Lisk vanitygen</b><br>
