@@ -35,7 +35,7 @@ function GetDelegateList($limit,$offset,$server){
 
 function ToggleForging($password,$pk,$server){
   $url = $server.FORGING_ENDPOINT;
-  return MainFunction("PUT",$url,'{"key": "'.$password.'","publicKey": "'.$pk.'"}',true,true,5);
+  return MainFunction("PUT",$url,'{"decryptionKey": "'.$password.'","publicKey": "'.$pk.'"}',true,true,5);
 }
 
 
