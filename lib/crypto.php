@@ -43,9 +43,9 @@ function DecryptMessage($message, $nonce, $passphrase, $senderPublicKey) {
 function encryptPassphrase($passphrase, $password) {
   	$iv = bin2hex(random_bytes(12));
   	$salt = bin2hex(random_bytes(16));
-	$key = hash_pbkdf2('sha256', $password, hex2bin($salt), PASSPHRASE_ENCRYPTION_ITERATIONS, 32, true);
+	$key = hash_pbkdf2('sha256', $password, hex2bin($salt), PASSPHRASE_ENCRYPTION_ITERATIONS_DEFAULT, 32, true);
 	list($encrypted, $tag) = AESGCM::encrypt($key, hex2bin($iv), $passphrase, null);
-   	$encryptedSecret = "iterations=".PASSPHRASE_ENCRYPTION_ITERATIONS."&salt=".$salt."&cipherText=".bin2hex($encrypted)."&iv=".$iv."&tag=".bin2hex($tag)."&version=".PASSPHRASE_ENCRYPTION_VERSION;
+   	$encryptedSecret = "iterations=".PASSPHRASE_ENCRYPTION_ITERATIONS_DEFAULT."&salt=".$salt."&cipherText=".bin2hex($encrypted)."&iv=".$iv."&tag=".bin2hex($tag)."&version=".PASSPHRASE_ENCRYPTION_VERSION;
 	return array('publicKey' => getKeysFromSecret($passphrase,true)['public'], 'encryptedSecret' => $encryptedSecret);
 }
 
