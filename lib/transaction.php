@@ -40,8 +40,8 @@ function CreateTransaction($recipientId, $amount, $passphrase1, $passphrase2, $d
 	}
 	$time_difference = GetCurrentLiskTimestamp()+$timeOffset;
 	$transaction = array('type' => $type,
-						 'amount' => (int)$amount,
-						 'fee' => $fee,
+						 'amount' => (string)$amount,
+						 'fee' => (string)$fee,
 						 'recipientId' => $recipientId,
 						 'timestamp' => (int)$time_difference,
 						 'asset' => $asset
@@ -58,27 +58,27 @@ function CreateTransaction($recipientId, $amount, $passphrase1, $passphrase2, $d
 		$transaction['signSignature'] = bin2hex($signSignature);
 	}
 	$transaction['id'] = getTxId($transaction);
-	return array('transaction' => $transaction);
+	return $transaction;
 }
 
 
 function Create2ndPassphrase($passphrase_base,$second_passphrase){
 	$publicKey = getKeysFromSecret($second_passphrase,true)['public'];
 	$asset['signature']['publicKey'] = $publicKey;
-	return CreateTransaction(null, 0, $passphrase_base, null, false, -10, SECOND_SIG_TRANSACTION_FLAG, $asset);
+	return CreateTransaction("", 0, $passphrase_base, null, false, -10, SECOND_SIG_TRANSACTION_FLAG, $asset);
 }
 
 
 function RegisterDelegate($name,$passphrase1,$passphrase2=false){
-	$asset['delegate']['username'] = $name;
+	$asset['delegate']['username'] = strtolower($name);
 	$asset['delegate']['publicKey'] = getKeysFromSecret($passphrase1,true)['public'];
-	return CreateTransaction(null, 0, $passphrase1, $passphrase2, false, -10, DELEGATE_TRANSACTION_FLAG, $asset);
+	return CreateTransaction("", 0, $passphrase1, $passphrase2, false, -10, DELEGATE_TRANSACTION_FLAG, $asset);
 }
 
 
 function Vote($votes,$passphrase1,$passphrase2=false){
 	$asset['votes'] = $votes;
-	return CreateTransaction(null, 0, $passphrase1, $passphrase2, false, -10, VOTE_TRANSACTION_FLAG, $asset);
+	return CreateTransaction("", 0, $passphrase1, $passphrase2, false, -10, VOTE_TRANSACTION_FLAG, $asset);
 }
 
 

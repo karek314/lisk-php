@@ -13,7 +13,8 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-
+use AESGCM\AESGCM;
+use Assert\Assertion;
 
 function EncryptMessage($message, $passphrase, $recipientPublicKey) {
 	$senderPrivateKey = getKeysFromSecret($passphrase)['secret'];
@@ -40,19 +41,24 @@ function DecryptMessage($message, $nonce, $passphrase, $senderPublicKey) {
 
 
 function encryptPassphrase($passphrase, $password) {
-  $key = hash('sha256', $password, true);
-  $iv = bin2hex(random_bytes(16));
-  $padding = 16 - (strlen($passphrase) % 16);
-  $passphrase .= str_repeat(chr($padding), $padding);
-  return array('iv' => $iv, 'encrypted' => bin2hex(mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $key, $passphrase, MCRYPT_MODE_CBC, hex2bin($iv))));
+  	$iv = bin2hex(random_bytes(12));
+  	$salt = bin2hex(random_bytes(16));
+	$key = hash_pbkdf2('sha256', $password, hex2bin($salt), PASSPHRASE_ENCRYPTION_ITERATIONS, 32, true);
+	list($encrypted, $tag) = AESGCM::encrypt($key, hex2bin($iv), $passphrase, null);
+   	$encryptedSecret = "iterations=".PASSPHRASE_ENCRYPTION_ITERATIONS."&salt=".$salt."&cipherText=".bin2hex($encrypted)."&iv=".$iv."&tag=".bin2hex($tag)."&version=".PASSPHRASE_ENCRYPTION_VERSION;
+	return array('publicKey' => getKeysFromSecret($passphrase,true)['public'], 'encryptedSecret' => $encryptedSecret);
 }
 
 
-function decryptPassphrase($encrypted, $iv, $password) {
-  $key = hash('sha256', $password, true);
-  $data = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $key, hex2bin($encrypted), MCRYPT_MODE_CBC, hex2bin($iv));
-  $padding = ord($data[strlen($data) - 1]);
-  return substr($data, 0, -$padding);
+function decryptPassphrase($encrypted, $password) {
+	$n_salt = get_string_between($encrypted,"salt=","&");
+	$n_cipherText = get_string_between($encrypted,"cipherText=","&");
+	$n_iv = get_string_between($encrypted,"iv=","&");
+	$n_tag = get_string_between($encrypted,"tag=","&");
+	$iterations = get_string_between($encrypted,"iterations=","&");
+	$n_key = hash_pbkdf2('sha256', $password, hex2bin($n_salt), $iterations, 32, true);
+	$passphrase = AESGCM::decrypt($n_key, hex2bin($n_iv), hex2bin($n_cipherText), null, hex2bin($n_tag));
+  	return $passphrase;
 }
 
 

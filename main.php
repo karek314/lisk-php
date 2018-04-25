@@ -21,6 +21,11 @@ require_once('lib/account.php');
 require_once('lib/transaction.php');
 require_once('lib/networking.php');
 require_once('lib/bytebuffer/main.php');
+require_once('lib/assert/lib/Assert/Assertion.php');
+require_once('lib/polyfill-mbstring/Mbstring.php');
+require_once('lib/polyfill-mbstring/Resources/unidata/lowerCase.php');
+require_once('lib/polyfill-mbstring/Resources/unidata/upperCase.php');
+require_once('lib/php-aes-gcm/src/AESGCM.php');
 require_once('lib/BigInteger.php');
 require_once('const.php');
 
@@ -30,6 +35,9 @@ $m->addServer('localhost', 11211);
 $lisk_host = $m->get('lisk_host');
 $lisk_port = $m->get('lisk_port');
 $lisk_protocol = $m->get('lisk_protocol');
+$lisk_host = "167.99.89.246";
+$lisk_port = "4000";
+$lisk_protocol = "http";
 if ($lisk_host && $lisk_port && $lisk_protocol) {
 	$server = $lisk_protocol."://";
 	if ($lisk_port == 80 || $lisk_port == 443) {

@@ -506,11 +506,16 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         newline();
         $output = getKeysFromSecret($parm1,true);
         echo 'Public Key:'.$output['public'];
+        newline();
+        echo 'Encrypting...';
         $output = encryptPassphrase($parm1,$parm2);
         newline();
         echo 'Encrypted->';
         newline();
         var_dump($output);
+        echo 'Json->';
+        newline();
+        echo json_encode($output);
         newline();
         newline();
     } else{
@@ -523,15 +528,13 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         newline();
     }
 } else if($cmd == strtolower('DecryptPassphrase')){
-    if ($parm1 && $parm2 && $parm3){
+    if ($parm1 && $parm2){
         newline();
-        echo 'Encrypted Message:'.$parm1;
+        echo 'Encrypted:'.$parm1;
         newline();
-        echo 'Iv:'.$parm2;
+        echo 'Password:'.$parm2;
         newline();
-        echo 'Password:'.$parm3;
-        newline();
-        $output = decryptPassphrase($parm1,$parm2,$parm3);
+        $output = decryptPassphrase($parm1,$parm2);
         newline();
         echo 'Passphrase->';
         newline();
@@ -542,9 +545,9 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         newline();
         method_info();
         newline();
-        echo 'php lisk-cli.php DecryptPassphrase "Encrypted passphrase" "IV" "Password"';
+        echo 'php lisk-cli.php DecryptPassphrase "Encrypted passphrase cipher" "Password"';
         newline();
-        echo 'php lisk-cli.php DecryptPassphrase 886aad2cdd821657e719bc5a280655a748c2a4a2ba65afa62e58e7607ee52fe7 1b80236a62151f02cc88abf99568eb2d "test"';
+        echo 'php lisk-cli.php DecryptPassphrase "iterations=1&salt=476d4299531718af8c88156aab0bb7d6&cipherText=663dde611776d87029ec188dc616d96d813ecabcef62ed0ad05ffe30528f5462c8d499db943ba2ded55c3b7c506815d8db1c2d4c35121e1d27e740dc41f6c405ce8ab8e3120b23f546d8b35823a30639&iv=1a83940b72adc57ec060a648&tag=b5b1e6c6e225c428a4473735bc8f1fc9&version=1" "password"';
         newline();
     }
 } else if($cmd == strtolower('ToggleForging')){
