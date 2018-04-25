@@ -12,6 +12,9 @@ if ! grep -q sodium.so $(php --ini | grep Loaded | cut -d" " -f12); then
 	echo "extension=sodium.so" >> $(php --ini | grep Loaded | cut -d" " -f12)
 fi
 git clone https://github.com/karek314/bytebuffer/
+<<<<<<< HEAD
 git clone https://github.com/karek314/php-aes-gcm
 git clone https://github.com/beberlei/assert
 git clone https://github.com/symfony/polyfill-mbstring
+=======
+>>>>>>> ed3a9739632cd5bfcc7f2d5f1fcd6a5567215e5b
