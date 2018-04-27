@@ -21,8 +21,8 @@ function GetDelegateInfo($pk,$server){
 }
 
 
-function GetPendingTx($server){
-  $url = $server.PENDING_TX_ENDPOINT;
+function GetPendingTx($server,$offset=0){
+  $url = $server.PENDING_TX_ENDPOINT."?limit=100&offset=".$offset;
   return MainFunction("GET",$url,false,false,true,5);
 }
 
@@ -39,8 +39,8 @@ function ToggleForging($password,$pk,$server){
 }
 
 
-function GetVotersFor($pk,$server){
-	$url = $server.VOTERS_ENDPOINT.$pk;
+function GetVotersFor($pk,$server,$offset=0){
+	$url = $server.VOTERS_ENDPOINT.$pk."&limit=100&offset=".$offset;
 	return MainFunction("GET",$url,false,false,true,5);
 }
 

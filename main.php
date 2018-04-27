@@ -35,9 +35,6 @@ $m->addServer('localhost', 11211);
 $lisk_host = $m->get('lisk_host');
 $lisk_port = $m->get('lisk_port');
 $lisk_protocol = $m->get('lisk_protocol');
-$lisk_host = "167.99.101.203";
-$lisk_port = "4000";
-$lisk_protocol = "http";
 if ($lisk_host && $lisk_port && $lisk_protocol) {
 	$server = $lisk_protocol."://";
 	if ($lisk_port == 80 || $lisk_port == 443) {
