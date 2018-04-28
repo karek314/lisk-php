@@ -573,6 +573,27 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         echo 'php lisk-cli.php ToggleForging "test password" 886aad2cdd821657e719bc5a280655a748c2a4a2ba65afa62e58e7607ee52fe7';
         newline();
     }
+} else if($cmd == strtolower('ForgingStatus')){
+    if ($parm1){
+        newline();
+        echo 'Public Key:'.$parm1;
+        newline();
+        $output = ForgingStatus($parm1,$server);
+        newline();
+        echo 'Forging->';
+        newline();
+        var_dump($output);
+        newline();
+        newline();
+    } else{
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php ToggleForging "public key"';
+        newline();
+        echo 'php lisk-cli.php ToggleForging 886aad2cdd821657e719bc5a280655a748c2a4a2ba65afa62e58e7607ee52fe7';
+        newline();
+    }
 } else if ($cmd == strtolower('GetPendingTx')) {
     newline();
     $output = GetPendingTx($server);
@@ -669,6 +690,8 @@ function help_message(){
     echo "\tGetVotes              Get account votes";
     newline();
     echo "\tToggleForging         Toggle On/Off forging on specified account";
+    newline();
+    echo "\tForgingStatus         Get forging status for specified account";
     newline();
     echo "\tEncryptPassphrase     Encrypts specified passphrase for forging toggle";
     newline();

@@ -39,6 +39,12 @@ function ToggleForging($password,$pk,$server){
 }
 
 
+function ForgingStatus($pk,$server){
+  $url = $server.FORGING_ENDPOINT."?publicKey=".$pk;
+  return MainFunction("GET",$url,false,true,true,5);
+}
+
+
 function GetVotersFor($pk,$server,$offset=0){
 	$url = $server.VOTERS_ENDPOINT.$pk."&limit=100&offset=".$offset;
 	return MainFunction("GET",$url,false,false,true,5);
