@@ -26,119 +26,119 @@ $parm5 = $argv[6];
 $parm6 = $argv[7];
 $parm7 = $argv[8];
 if ($cmd == strtolower('getKeysFromSecret')) {
-	if ($parm1) {
-		echo "Passphrase:".$parm1;
-		$output = getKeysFromSecret($parm1,true);
-		echo "\nAddress:".getAddressFromPublicKey($output['public']);
-		echo "\nPublic:".$output['public'];
-		echo "\nSecret:".$output['secret'];
-		newline();
-	} else {
-		newline();
-		method_info();
-		newline();
-		echo 'php lisk-cli.php getKeysFromSecret "passphrase"';
-		newline();
-		echo 'php lisk-cli.php getKeysFromSecret "word word word"';
-		newline();
-	}
+    if ($parm1) {
+        echo "Passphrase:".$parm1;
+        $output = getKeysFromSecret($parm1,true);
+        echo "\nAddress:".getAddressFromPublicKey($output['public']);
+        echo "\nPublic:".$output['public'];
+        echo "\nSecret:".$output['secret'];
+        newline();
+    } else {
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php getKeysFromSecret "passphrase"';
+        newline();
+        echo 'php lisk-cli.php getKeysFromSecret "word word word"';
+        newline();
+    }
 } else if ($cmd == strtolower('CreateTransaction')) {
-	if ($parm1 && $parm2 && $parm3) {
-		echo "Amount:".$parm2."\n";
-		echo "Recipient:".$parm1."\n";
-		$amount = LSK_BASE*$parm2;
-		if ($parm4) {
-			echo "Signing with 2 passphrases\n";
-		} else {
-			echo "Signing with 1 passphrase\n";
-		}
-		$tx = CreateTransaction($parm1, $amount, $parm3, $parm4, false, -10);
-		newline();
-		echo "Transaction->";
-		var_dump($tx);
-		newline();
-		bold_echo('Plain json string to broadcast');
-		newline();
-		echo json_encode($tx);
-		newline();
-		bold_echo("End of plain json string");
-		newline();
-	} else {
-		transaction_helper('CreateTransaction');
-		die("\n");
-	}
+    if ($parm1 && $parm2 && $parm3) {
+        echo "Amount:".$parm2."\n";
+        echo "Recipient:".$parm1."\n";
+        $amount = LSK_BASE*$parm2;
+        if ($parm4) {
+            echo "Signing with 2 passphrases\n";
+        } else {
+            echo "Signing with 1 passphrase\n";
+        }
+        $tx = CreateTransaction($parm1, $amount, $parm3, $parm4, false, -10);
+        newline();
+        echo "Transaction->";
+        var_dump($tx);
+        newline();
+        bold_echo('Plain json string to broadcast');
+        newline();
+        echo json_encode($tx);
+        newline();
+        bold_echo("End of plain json string");
+        newline();
+    } else {
+        transaction_helper('CreateTransaction');
+        die("\n");
+    }
 } else if ($cmd == strtolower('SendTransaction')) {
-	if ($parm1 && $parm2 && $parm3) {
-		echo "Amount:".$parm2."\n";
-		echo "Recipient:".$parm1."\n";
-		$amount = LSK_BASE*$parm2;
-		if ($parm4) {
-			echo "Signing with 2 passphrases\n";
-		} else {
-			echo "Signing with 1 passphrase\n";
-		}
-		$tx = CreateTransaction($parm1, $amount, $parm3, $parm4, false, -10);
-		newline();
-		echo "Transaction->";
-		var_dump($tx);
-		newline();
-		bold_echo("Response->");
-		var_dump(SendTransaction(json_encode($tx),$server));
-		newline();
-	} else {
-		transaction_helper('SendTransaction');
-		die("\n");
-	}
+    if ($parm1 && $parm2 && $parm3) {
+        echo "Amount:".$parm2."\n";
+        echo "Recipient:".$parm1."\n";
+        $amount = LSK_BASE*$parm2;
+        if ($parm4) {
+            echo "Signing with 2 passphrases\n";
+        } else {
+            echo "Signing with 1 passphrase\n";
+        }
+        $tx = CreateTransaction($parm1, $amount, $parm3, $parm4, false, -10);
+        newline();
+        echo "Transaction->";
+        var_dump($tx);
+        newline();
+        bold_echo("Response->");
+        var_dump(SendTransaction(json_encode($tx),$server));
+        newline();
+    } else {
+        transaction_helper('SendTransaction');
+        die("\n");
+    }
 } else if ($cmd == strtolower('NodeStatus')) {
-	newline();
-	echo "Status->";
-	var_dump(NodeStatus($server));
-	newline();
+    newline();
+    echo "Status->";
+    var_dump(NodeStatus($server));
+    newline();
 } else if ($cmd == strtolower('Account')) {
-	if ($parm1){
-		newline();
-		echo "Account->";
-		var_dump(AccountForAddress($parm1,$server));
-		newline();	
-	} else {
-		newline();
-		method_info();
-		newline();
-		echo 'php lisk-cli.php Account address';
-		newline();
-		echo 'php lisk-cli.php Account 14034346393178966836L';
-		newline();
-	}
+    if ($parm1){
+        newline();
+        echo "Account->";
+        var_dump(AccountForAddress($parm1,$server));
+        newline();  
+    } else {
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php Account address';
+        newline();
+        echo 'php lisk-cli.php Account 14034346393178966836L';
+        newline();
+    }
 } else if ($cmd == strtolower('GetBlocksBy')) {
-	if ($parm1){
-		newline();
-		echo "Blocks->";
-		var_dump(GetBlocksBy($parm1, $server));
-		newline();	
-	} else {
-		newline();
-		method_info();
-		newline();
-		echo 'php lisk-cli.php GetBlocksBy';
-		newline();
-		echo 'php lisk-cli.php GetBlocksBy b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84';
-		newline();
+    if ($parm1){
+        newline();
+        echo "Blocks->";
+        var_dump(GetBlocksBy($parm1, $server));
+        newline();  
+    } else {
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php GetBlocksBy';
+        newline();
+        echo 'php lisk-cli.php GetBlocksBy b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84';
+        newline();
     }
 } else if ($cmd == strtolower('GetVotersFor')) {
-	if ($parm1){
-		newline();
-		echo "Voters->";
-		var_dump(GetVotersFor($parm1,$server));
-		newline();	
-	} else {
-		newline();
-		method_info();
-		newline();
-		echo 'php lisk-cli.php GetVotersFor publicKey';
-		newline();
-		echo 'php lisk-cli.php GetVotersFor b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84';
-		newline();
-	}
+    if ($parm1){
+        newline();
+        echo "Voters->";
+        var_dump(GetVotersFor($parm1,$server));
+        newline();  
+    } else {
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php GetVotersFor publicKey';
+        newline();
+        echo 'php lisk-cli.php GetVotersFor b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84';
+        newline();
+    }
 } else if ($cmd == strtolower('GetDelegateList')) {
     if ($parm1 && $parm2){
         newline();
@@ -155,20 +155,20 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         newline();
     }
 } else if ($cmd == strtolower('GetDelegateInfo')) {//GetDelegateList
-	if ($parm1){
-		newline();
-		echo "Info->";
-		var_dump(GetDelegateInfo($parm1,$server));
-		newline();	
-	} else {
-		newline();
-		method_info();
-		newline();
-		echo 'php lisk-cli.php GetDelegateInfo publicKey';
-		newline();
-		echo 'php lisk-cli.php GetDelegateInfo b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84';
-		newline();
-	}
+    if ($parm1){
+        newline();
+        echo "Info->";
+        var_dump(GetDelegateInfo($parm1,$server));
+        newline();  
+    } else {
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php GetDelegateInfo publicKey';
+        newline();
+        echo 'php lisk-cli.php GetDelegateInfo b002f58531c074c7190714523eec08c48db8c7cfc0c943097db1a2e82ed87f84';
+        newline();
+    }
 } else if ($cmd == strtolower('GetBlock')){
     if ($parm1){
         newline();
@@ -217,9 +217,9 @@ if ($cmd == strtolower('getKeysFromSecret')) {
     if ($parm1){
         newline();
         if ($parm2) {
-        	$passphrase = GenerateAccount($parm1,hash('sha256',$parm2));
+            $passphrase = GenerateAccount($parm1,hash('sha256',$parm2));
         } else {
-        	$passphrase = GenerateAccount($parm1);
+            $passphrase = GenerateAccount($parm1);
         }
         $output = getKeysFromSecret($passphrase,true);
         newline();
@@ -227,11 +227,11 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         newline();
         echo "Passphrase:".$passphrase;
         newline();
-		echo "Address:".getAddressFromPublicKey($output['public']);
-		newline();
-		echo "Public:".$output['public'];
-		newline();
-		echo "Secret:".$output['secret'];
+        echo "Address:".getAddressFromPublicKey($output['public']);
+        newline();
+        echo "Public:".$output['public'];
+        newline();
+        echo "Secret:".$output['secret'];
         newline();
         newline();
     } else{
@@ -268,16 +268,16 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         } else {
             $account = Vanitygen($parm1,$parm2);
         }
-       	newline();
+        newline();
         echo "Found account with [".$parm2."] prefix->";
         newline();
         echo "Passphrase:".$account['passphrase'];
         newline();
-		echo "Address:".$account['address'];
-		newline();
-		echo "Public:".$account['public'];
-		newline();
-		echo "Secret:".$account['secret'];
+        echo "Address:".$account['address'];
+        newline();
+        echo "Public:".$account['public'];
+        newline();
+        echo "Secret:".$account['secret'];
         newline();
         newline();
     } else{
@@ -299,22 +299,22 @@ if ($cmd == strtolower('getKeysFromSecret')) {
     if ($parm1 && $parm2){
         newline();
         if ($parm3) {
-        	if (substr_count($parm3, ' ') > 10) {
-        		$second_passphrase = $parm3;
-        	} else {
-        		$second_passphrase = GenerateAccount($parm2,$parm3);
-        	}
+            if (substr_count($parm3, ' ') > 10) {
+                $second_passphrase = $parm3;
+            } else {
+                $second_passphrase = GenerateAccount($parm2,$parm3);
+            }
         } else {
-        	$second_passphrase = GenerateAccount($parm2);
+            $second_passphrase = GenerateAccount($parm2);
         }
         echo 'Second Passphrase:'.$second_passphrase;
-       	$tx = Create2ndPassphrase($parm1,$second_passphrase);
-       	newline();
-       	echo "Transaction->";
-		var_dump($tx);
-		newline();
-		bold_echo("Response->");
-		var_dump(SendTransaction(json_encode($tx),$server));
+        $tx = Create2ndPassphrase($parm1,$second_passphrase);
+        newline();
+        echo "Transaction->";
+        var_dump($tx);
+        newline();
+        bold_echo("Response->");
+        var_dump(SendTransaction(json_encode($tx),$server));
         newline();
         newline();
     } else{
@@ -342,13 +342,13 @@ if ($cmd == strtolower('getKeysFromSecret')) {
     if ($parm1 && $parm2){
         newline();
         echo 'Delegate Name:'.$parm1;
-       	$tx = RegisterDelegate($parm1,$parm2,$parm3);
-       	newline();
-       	echo "Transaction->";
-		var_dump($tx);
-		newline();
-		bold_echo("Response->");
-		var_dump(SendTransaction(json_encode($tx),$server));
+        $tx = RegisterDelegate($parm1,$parm2,$parm3);
+        newline();
+        echo "Transaction->";
+        var_dump($tx);
+        newline();
+        bold_echo("Response->");
+        var_dump(SendTransaction(json_encode($tx),$server));
         newline();
         newline();
     } else{
@@ -370,28 +370,28 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         $votes = $parm1;
         $votes_count = substr_count($votes,'+')+substr_count($votes,'-');
         if ($votes_count > 1) {
-        	$votes = preg_split("/(\\+|-)/", $votes);
-        	$tvotes = array();
-        	foreach ($votes as $key => $value) {
-        		if (strlen($value)==64) {
-					if (strpos($parm1, '+'.$value) !== false) {
-						$tvotes[] = '+'.$value;
-					} else if (strpos($parm1, '-'.$value) !== false) {
-						$tvotes[] = '-'.$value;
-					}
-        		}
-        	}
-        	$votes = $tvotes;
+            $votes = preg_split("/(\\+|-)/", $votes);
+            $tvotes = array();
+            foreach ($votes as $key => $value) {
+                if (strlen($value)==64) {
+                    if (strpos($parm1, '+'.$value) !== false) {
+                        $tvotes[] = '+'.$value;
+                    } else if (strpos($parm1, '-'.$value) !== false) {
+                        $tvotes[] = '-'.$value;
+                    }
+                }
+            }
+            $votes = $tvotes;
         } else {
-        	$votes = array($votes);
+            $votes = array($votes);
         }
-       	$tx = Vote($votes,$parm2,$parm3);
-       	newline();
-       	echo "Transaction->";
-		var_dump($tx);
-		newline();
-		bold_echo("Response->");
-		var_dump(SendTransaction(json_encode($tx),$server));
+        $tx = Vote($votes,$parm2,$parm3);
+        newline();
+        echo "Transaction->";
+        var_dump($tx);
+        newline();
+        bold_echo("Response->");
+        var_dump(SendTransaction(json_encode($tx),$server));
         newline();
         newline();
     } else{
@@ -508,7 +508,11 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         echo 'Public Key:'.$output['public'];
         newline();
         echo 'Encrypting...';
-        $output = encryptPassphrase($parm1,$parm2);
+        $iterations = PASSPHRASE_ENCRYPTION_ITERATIONS_DEFAULT;
+        if (is_numeric($parm3)) {
+            $iterations = $parm3;
+        }
+        $output = encryptPassphrase($parm1,$parm2,$iterations);
         newline();
         echo 'Encrypted->';
         newline();
@@ -522,9 +526,9 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         newline();
         method_info();
         newline();
-        echo 'php lisk-cli.php EncryptPassphrase "Passphrase" "password"';
+        echo 'php lisk-cli.php EncryptPassphrase "Passphrase" "password" OptionalNumberOfSaltIterations';
         newline();
-        echo 'php lisk-cli.php EncryptPassphrase "word word word" "password"';
+        echo 'php lisk-cli.php EncryptPassphrase "word word word" "password" 2500';
         newline();
     }
 } else if($cmd == strtolower('DecryptPassphrase')){
@@ -604,59 +608,59 @@ if ($cmd == strtolower('getKeysFromSecret')) {
     newline();
     newline();
 } else if ($cmd == strtolower('help')) {
-	help_message();
+    help_message();
 } else {
-	help_message();
+    help_message();
 }
 
 
 function transaction_helper($method){
-	newline();
-	bold_echo('Below you can see pattern and example for parms');
-	newline();
-	echo 'php lisk-cli.php '.$method.' recipient 1.50 "passphrase1" "passphrase2"';
-	newline();
-	echo 'php lisk-cli.php '.$method.' 2928783316108674201L 1.50 "word word word" "word word word"';
-	newline();
-	echo 'Second pasphrase is optional, use it only for account with enabled second signature.';
+    newline();
+    bold_echo('Below you can see pattern and example for parms');
+    newline();
+    echo 'php lisk-cli.php '.$method.' recipient 1.50 "passphrase1" "passphrase2"';
+    newline();
+    echo 'php lisk-cli.php '.$method.' 2928783316108674201L 1.50 "word word word" "word word word"';
+    newline();
+    echo 'Second pasphrase is optional, use it only for account with enabled second signature.';
 }
 
 
 function help_message(){
-	newline();
-	bold_echo('Help Message');
-	newline();
-	echo "\tlisk-php - Interface to interact with Lisk network via PHP";
-	newline();
-	echo "\tCLI Tool and library for php projects";
-	newline();
-	echo "\tCopyright 2017 Karek314";
-	newline();
-	newline();
-	bold_echo('CLI USAGE:');
-	newline();
-	echo "\tphp lisk-cli.php METHOD parm1 parm2 parm3...";
-	newline();
-	newline();
-	bold_echo('INFO:');
-	newline();
-	echo "\tEach METHOD can be executed without any parms to get more detailed help information which parms are needed.";
-	newline();
-	newline();
-	bold_echo('METHODS:');
-	newline();
-	echo "\thelp                  Display this help message";
-	newline();
-	echo "\tGenerateAccount       Generates new bip39 account";
-	newline();
-	echo "\tVanitygen             Generates new bip39 account with desired prefix";
-	newline();
-	echo "\tCreate2ndPassphrase   Generates second signature to specified account";
-	newline();
-	echo "\tRegisterDelegate      Registers delegate with specified name";
-	newline();
-	echo "\tVote                  Vote for specified delegates with publicKey";
-	newline();
+    newline();
+    bold_echo('Help Message');
+    newline();
+    echo "\tlisk-php - Interface to interact with Lisk network via PHP";
+    newline();
+    echo "\tCLI Tool and library for php projects";
+    newline();
+    echo "\tCopyright 2017 Karek314";
+    newline();
+    newline();
+    bold_echo('CLI USAGE:');
+    newline();
+    echo "\tphp lisk-cli.php METHOD parm1 parm2 parm3...";
+    newline();
+    newline();
+    bold_echo('INFO:');
+    newline();
+    echo "\tEach METHOD can be executed without any parms to get more detailed help information which parms are needed.";
+    newline();
+    newline();
+    bold_echo('METHODS:');
+    newline();
+    echo "\thelp                  Display this help message";
+    newline();
+    echo "\tGenerateAccount       Generates new bip39 account";
+    newline();
+    echo "\tVanitygen             Generates new bip39 account with desired prefix";
+    newline();
+    echo "\tCreate2ndPassphrase   Generates second signature to specified account";
+    newline();
+    echo "\tRegisterDelegate      Registers delegate with specified name";
+    newline();
+    echo "\tVote                  Vote for specified delegates with publicKey";
+    newline();
     echo "\tSignMessage           Signs message with specified account";
     newline();
     echo "\tVerifyMessage         Verify signed message and displays it";
@@ -665,23 +669,23 @@ function help_message(){
     newline();
     echo "\tDecryptMessage        Decrypts message with encrypted hex body, nonce and sender publickey";
     newline();
-	echo "\tgetKeysFromSecret     Generates public and secret from passphrase";
-	newline();
-	echo "\tCreateTransaction     Creates signed, ready to broadcast transaction";
-	newline();
-	echo "\tSendTransaction       Creates signed, ready to broadcast transaction and then broadcast it";
-	newline();
-	echo "\tNodeStatus            Get current selected node status";
-	newline();
-	echo "\tAccount               Get specified account details";
-	newline();
+    echo "\tgetKeysFromSecret     Generates public and secret from passphrase";
+    newline();
+    echo "\tCreateTransaction     Creates signed, ready to broadcast transaction";
+    newline();
+    echo "\tSendTransaction       Creates signed, ready to broadcast transaction and then broadcast it";
+    newline();
+    echo "\tNodeStatus            Get current selected node status";
+    newline();
+    echo "\tAccount               Get specified account details";
+    newline();
     echo "\tGetBlock              Get specified block details";
     newline();
-	echo "\tGetBlocksBy           Get blocks forged by";
-	newline();
-	echo "\tGetVotersFor          Get list of voters for delegate";
-	newline();
-	echo "\tGetDelegateInfo       Get delegate info";
+    echo "\tGetBlocksBy           Get blocks forged by";
+    newline();
+    echo "\tGetVotersFor          Get list of voters for delegate";
+    newline();
+    echo "\tGetDelegateInfo       Get delegate info";
     newline();
     echo "\tGetBlockchainInfo     Get blockchain constants and info";
     newline();
@@ -701,22 +705,22 @@ function help_message(){
     newline();
     echo "\tGetPendingTx          Get list of pending transactions";
     newline();
-	newline();
+    newline();
 }
 
 
 function newline(){
-	echo PHP_EOL;
+    echo PHP_EOL;
 }
 
 
 function bold_echo($msg){
-	echo "\033[1m".$msg."\033[0m";
+    echo "\033[1m".$msg."\033[0m";
 }
 
 
 function method_info(){
-	bold_echo('Below you can see pattern and example for parms');
+    bold_echo('Below you can see pattern and example for parms');
 }
 
 
