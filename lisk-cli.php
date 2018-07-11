@@ -557,11 +557,23 @@ if ($cmd == strtolower('getKeysFromSecret')) {
 } else if($cmd == strtolower('ToggleForging')){
     if ($parm1 && $parm2){
         newline();
-        echo 'Password:'.$parm1;
+        echo 'State:'.$parm1;
         newline();
-        echo 'Public Key:'.$parm2;
+        echo 'Password:'.$parm2;
         newline();
-        $output = ToggleForging($parm1,$parm2,$server);
+        echo 'Public Key:'.$parm3;
+        newline();
+        $parm1 = strtolower($parm1);
+        if ($parm1 == 'on') {
+            $parm1 = true;
+            newline();
+            echo 'Turning Forging: ON';
+        } else {
+            $parm2 = false;
+            newline();
+            echo 'Turning Forging: OFF';
+        }
+        $output = ToggleForging($parm1,$parm2,$parm3,$server);
         newline();
         echo 'Forging->';
         newline();
@@ -572,9 +584,9 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         newline();
         method_info();
         newline();
-        echo 'php lisk-cli.php ToggleForging "password" "public key"';
+        echo 'php lisk-cli.php ToggleForging "on or off" "password" "public key"';
         newline();
-        echo 'php lisk-cli.php ToggleForging "test password" 886aad2cdd821657e719bc5a280655a748c2a4a2ba65afa62e58e7607ee52fe7';
+        echo 'php lisk-cli.php ToggleForging on "test password" 886aad2cdd821657e719bc5a280655a748c2a4a2ba65afa62e58e7607ee52fe7';
         newline();
     }
 } else if($cmd == strtolower('ForgingStatus')){

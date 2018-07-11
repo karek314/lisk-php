@@ -33,9 +33,9 @@ function GetDelegateList($limit,$offset,$server){
 }
 
 
-function ToggleForging($password,$pk,$server){
+function ToggleForging($forging,$password,$pk,$server){
   $url = $server.FORGING_ENDPOINT;
-  return MainFunction("PUT",$url,'{"decryptionKey": "'.$password.'","publicKey": "'.$pk.'"}',true,true,5);
+  return MainFunction("PUT",$url,'{"forging":'.$forging.',"password":"'.$password.'","publicKey":"'.$pk.'"}',true,true,5);
 }
 
 
@@ -95,7 +95,7 @@ function NodeStatus($server){
 
 function SendTransaction($transaction_string,$server){
 	$url = $server.SEND_TRANSACTION_ENDPOINT;
-	return MainFunction("POST",$url,$transaction_string,true,true,6);
+	return MainFunction("POST",$url,$transaction_string,true,true,30);
 }
 
 

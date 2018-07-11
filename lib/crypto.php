@@ -46,7 +46,7 @@ function encryptPassphrase($passphrase, $password, $iterations=PASSPHRASE_ENCRYP
 	$key = hash_pbkdf2('sha256', $password, hex2bin($salt), $iterations, 32, true);
 	list($encrypted, $tag) = AESGCM::encrypt($key, hex2bin($iv), $passphrase, null);
    	$encryptedSecret = "iterations=".$iterations."&salt=".$salt."&cipherText=".bin2hex($encrypted)."&iv=".$iv."&tag=".bin2hex($tag)."&version=".PASSPHRASE_ENCRYPTION_VERSION;
-	return array('publicKey' => getKeysFromSecret($passphrase,true)['public'], 'encryptedSecret' => $encryptedSecret);
+	return array('publicKey' => getKeysFromSecret($passphrase,true)['public'], 'encryptedPassphrase' => $encryptedSecret);
 }
 
 
