@@ -35,7 +35,8 @@ function GetDelegateList($limit,$offset,$server){
 
 function ToggleForging($forging,$password,$pk,$server){
   $url = $server.FORGING_ENDPOINT;
-  return MainFunction("PUT",$url,'{"forging":'.$forging.',"password":"'.$password.'","publicKey":"'.$pk.'"}',true,true,5);
+  $tmp = array('forging' => $forging, 'password' => $password, 'publicKey' => $pk);
+  return MainFunction("PUT",$url,json_encode($tmp),true,true,5);
 }
 
 
@@ -100,8 +101,8 @@ function SendTransaction($transaction_string,$server){
 
 
 function MainFunction($method,$url,$body=false,$jsonBody=true,$jsonResponse=true,$timeout=3){
-  $ch = curl_init($url);                                                                      
-  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);                                                                                      
+  $ch = curl_init($url);                                       
+  curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
   curl_setopt($ch, CURLOPT_USERAGENT, USER_AGENT);
   curl_setopt($ch, CURLOPT_CONNECTTIMEOUT ,$timeout);

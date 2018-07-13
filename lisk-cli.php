@@ -569,7 +569,7 @@ if ($cmd == strtolower('getKeysFromSecret')) {
             newline();
             echo 'Turning Forging: ON';
         } else {
-            $parm2 = false;
+            $parm1 = false;
             newline();
             echo 'Turning Forging: OFF';
         }
