@@ -38,6 +38,10 @@ function CreateTransaction($recipientId, $amount, $passphrase1, $passphrase2, $d
 	} else if ($type == DAPP_OUT_TRANSACTION_FLAG){
 		$fee = SEND_FEE;
 	}
+	if ($data) {
+		$asset = array();
+		$asset['data'] = $data;
+	}
 	$time_difference = GetCurrentLiskTimestamp()+$timeOffset;
 	$transaction = array('type' => $type,
 						 'amount' => (string)$amount,
@@ -46,9 +50,6 @@ function CreateTransaction($recipientId, $amount, $passphrase1, $passphrase2, $d
 						 'timestamp' => (int)$time_difference,
 						 'asset' => $asset
 						);
-	if ($data) {
-		$transaction['data'] = $data;
-	}
 	$transaction['senderPublicKey'] = bin2hex($keys['public']);
 	$signature = signTx($transaction,$keys);
 	$transaction['signature'] = bin2hex($signature);

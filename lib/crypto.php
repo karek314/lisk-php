@@ -273,8 +273,20 @@ function assignTransactionBuffer($transaction, $assetSize, $assetBytes, $options
 
 function getTxAssetBytes($transaction){
 	if ($transaction['type'] == SEND_TRANSACTION_FLAG) {
-		$tmp = array('assetBytes' => null,
-					 'assetSize' => 0);
+		if ($transaction['asset'] == new stdClass()) {
+			$tmp = array('assetBytes' => null,
+					 	 'assetSize' => 0);
+		} else {
+			$data = strtohex($transaction['asset']['data']);
+			$hexBuffer = str_split($data,2);
+			$byteBuffer = array();
+			foreach ($hexBuffer as $key => $value) {
+				$byte = bchexdec($value);
+				$byteBuffer[] = $byte;
+			}
+			$tmp = array('assetBytes' => $byteBuffer,
+					 	 'assetSize' => count($byteBuffer));
+		}
 	} else if ($transaction['type'] == SECOND_SIG_TRANSACTION_FLAG) {
 		$hash = $transaction['asset']['signature']['publicKey'];
 		$hexBuffer = str_split($hash,2);

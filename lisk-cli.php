@@ -47,12 +47,13 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         echo "Amount:".$parm2."\n";
         echo "Recipient:".$parm1."\n";
         $amount = LSK_BASE*$parm2;
+        if ($parm4 == "false") { $parm4 = false; }
         if ($parm4) {
             echo "Signing with 2 passphrases\n";
         } else {
             echo "Signing with 1 passphrase\n";
         }
-        $tx = CreateTransaction($parm1, $amount, $parm3, $parm4, false, -10);
+        $tx = CreateTransaction($parm1, $amount, $parm3, $parm5, false, -10);
         newline();
         echo "Transaction->";
         var_dump($tx);
@@ -72,12 +73,13 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         echo "Amount:".$parm2."\n";
         echo "Recipient:".$parm1."\n";
         $amount = LSK_BASE*$parm2;
+        if ($parm4 == "false") { $parm4 = false; }
         if ($parm4) {
             echo "Signing with 2 passphrases\n";
         } else {
             echo "Signing with 1 passphrase\n";
         }
-        $tx = CreateTransaction($parm1, $amount, $parm3, $parm4, false, -10);
+        $tx = CreateTransaction($parm1, $amount, $parm3, $parm4, $parm5, -10);
         newline();
         echo "Transaction->";
         var_dump($tx);
@@ -635,6 +637,13 @@ function transaction_helper($method){
     echo 'php lisk-cli.php '.$method.' 2928783316108674201L 1.50 "word word word" "word word word"';
     newline();
     echo 'Second pasphrase is optional, use it only for account with enabled second signature.';
+    newline();
+    bold_echo('Additionally you can set up custom data, plain string');
+    newline();
+    echo 'php lisk-cli.php '.$method.' 2928783316108674201L 1.50 "word word word" false "test string to attach to transaction asset"';
+    newline();
+    echo 'php lisk-cli.php '.$method.' 2928783316108674201L 1.50 "word word word" "word word word" "test string to attach to transaction asset"';
+    newline();
 }
 
 
