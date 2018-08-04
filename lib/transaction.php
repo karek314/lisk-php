@@ -40,7 +40,7 @@ function CreateTransaction($recipientId, $amount, $passphrase1, $passphrase2, $d
 	}
 	if ($data) {
 		$asset = array();
-		$asset['data'] = $data;
+		$asset['data'] = (string)$data;
 	}
 	$time_difference = GetCurrentLiskTimestamp()+$timeOffset;
 	$transaction = array('type' => $type,
