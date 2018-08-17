@@ -19,8 +19,8 @@ const LISK_START = 1464109200;
 const USER_AGENT = "LISK-PHP ".LISK_PHP_VER." via CURL (Linux, en-GB)";
 const SECURE = true;
 const MAINNET = true;
-//const NETWORK_HASH = "ed14889723f24ecc54871d058d98ce91ff2f973192075c0155ba2b7b70ad2511"; //mainnet
-const NETWORK_HASH = "198f2b61a8eb95fbeed58b8216780b68f697f26b849acf00c8c93bb9b24f783d"; //community beta net
+const NETWORK_HASH = "ed14889723f24ecc54871d058d98ce91ff2f973192075c0155ba2b7b70ad2511"; //mainnet
+//const NETWORK_HASH = "198f2b61a8eb95fbeed58b8216780b68f697f26b849acf00c8c93bb9b24f783d"; //community beta net
 const MINVERSION = ">=1.0.0";
 const OS = "lisk-php-api";
 const API_VERSION = "1.0.0";
