@@ -156,7 +156,37 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         echo 'php lisk-cli.php GetDelegateList 5 101';
         newline();
     }
-} else if ($cmd == strtolower('GetDelegateInfo')) {//GetDelegateList
+} else if ($cmd == strtolower('GetDelegateListPKV')) {
+    if ($parm1 && $parm2){
+        newline();
+        echo "List->";
+        $list = GetDelegateList($parm1,$parm2,$server)['data'];
+        $count=0;
+        foreach ($list as $key => $value) {
+            $count++;
+            if ($parm3 == '+') {
+                echo "+";
+            } else {
+                echo "-";
+            }
+            $pk = $value['account']['publicKey'];
+            echo $pk;
+            if ($count >= 33) {
+                $count=0;
+                echo "\n\n\n";
+            }
+        }
+        newline();  
+    } else {
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php GetDelegateListPKV +';
+        newline();
+        echo 'php lisk-cli.php GetDelegateListPKV -';
+        newline();
+    }
+}  else if ($cmd == strtolower('GetDelegateInfo')) {
     if ($parm1){
         newline();
         echo "Info->";
