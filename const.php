@@ -34,7 +34,7 @@ const VOTES_ENDPOINT = "api/votes?address=";
 const DELEGATE_ENDPOINT = "api/delegates/";
 const FORGING_ENDPOINT = "api/node/status/forging";
 const DELEGATES_LIST_ENDPOINT = "api/delegates/";
-const PENDING_TX_ENDPOINT = "api/node/transactions/unconfirmed";
+const PENDING_TX_ENDPOINT = "api/node/transactions/unprocessed";
 
 
 const LSK_BASE = 100000000;
