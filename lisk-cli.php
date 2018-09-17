@@ -111,6 +111,31 @@ if ($cmd == strtolower('getKeysFromSecret')) {
         echo 'php lisk-cli.php Account 14034346393178966836L';
         newline();
     }
+} else if ($cmd == strtolower('Transactions')) {
+    if ($parm1 && $parm2){
+        newline();
+        echo "Transactions->";
+        if ($parm2 == 'sent') {
+            $parm2 = false;
+        } else {
+            $parm2 = true;
+        }
+        if ($parm3 === false) {
+            $parm3 == 0;
+        } else {
+            $parm3 = (int)$parm3;
+        }
+        var_dump(TransactionsForAddress($parm1,$server,$parm2,$parm3));
+        newline();  
+    } else {
+        newline();
+        method_info();
+        newline();
+        echo 'php lisk-cli.php Transactions address sent';
+        newline();
+        echo 'php lisk-cli.php Transactions 14034346393178966836L sent';
+        newline();
+    }
 } else if ($cmd == strtolower('GetBlocksBy')) {
     if ($parm1){
         newline();
@@ -729,6 +754,8 @@ function help_message(){
     echo "\tNodeStatus            Get current selected node status";
     newline();
     echo "\tAccount               Get specified account details";
+    newline();
+    echo "\tTransactions          Get specified account transactions";
     newline();
     echo "\tGetBlock              Get specified block details";
     newline();

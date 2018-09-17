@@ -88,6 +88,16 @@ function AccountForAddress($address,$server){
 }
 
 
+function TransactionsForAddress($address,$server,$sent=true,$offset=0){
+  if ($sent) {
+    $url = $server.SEND_TRANSACTION_ENDPOINT.'?limit=100&offset='.$offset.'&recipientId='.$address;
+  } else {
+    $url = $server.SEND_TRANSACTION_ENDPOINT.'?limit=100&offset='.$offset.'&senderId='.$address;
+  }
+  return MainFunction("GET",$url,false,false,true,3);
+}
+
+
 function NodeStatus($server){
   $url = $server.NODE_STATUS;
 	return MainFunction("GET",$url,false,false,true,3);
