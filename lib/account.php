@@ -15,7 +15,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 
 
-function Vanitygen($lenght=12,$prefix,$t=1,$special=true,$special_lenght=17,$speciality=6){
+function Vanitygen($lenght=12,$prefix,$t=1,$special=false,$special_lenght=17,$speciality=6){
   $start = new DateTime();
   //Function designed only for CLI use
   $i = 0;
@@ -109,7 +109,7 @@ function GenerateAccount($lenght=12,$custom_entropy=false){
   if ($custom_entropy) {
     $entropy = substr($custom_entropy,0,$size/4);
   } else {
-    $entropy = bin2hex(mcrypt_create_iv($size/8, \MCRYPT_DEV_URANDOM));
+    $entropy = bin2hex(random_bytes($size/8));
   }
   return GetMnemonicSeedFromEntropy($entropy);
 }
