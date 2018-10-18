@@ -133,7 +133,9 @@ require_once('main.php');
  
  ## Contributing
 If you want to contribute, fork and pull request or open issue.
-        
+     
+## To do
+-Adapt message signing to 1.0.0 standard   
 
 ## License
 Licensed under the [MIT license](https://github.com/karek314/lisk-php/blob/master/LICENSE)
