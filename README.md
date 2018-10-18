@@ -15,6 +15,8 @@ git clone https://github.com/karek314/lisk-php
 cd lisk-php
 bash setup.sh
 ```
+setup.sh for Ubuntu 18.04<br>
+setup_16.04.sh for Ubuntu 16.04 and others (php without built-in libsodium)<br>
 
 ## Usage
 This is library for PHP projects and CLI tool. Which allows to interact with Lisk network including signing transactions and other cryptographic activities.
