@@ -53,7 +53,7 @@ function GetVotersFor($pk,$server,$offset=0){
 
 
 function GetDelegatesList($server, $limit=101, $orderBy="rate", $offset=0, $orderType="asc"){
-    $url = $server.DELEGATE_ENDPOINT.'?limit='.$limit.'&offset='.$offset.'&orderBy='.$orderBy.':'.$orderType;
+    $url = $server.DELEGATE_ENDPOINT.'?limit='.$limit.'&offset='.$offset.'&sort='.$orderBy.':'.$orderType;
     return MainFunction("GET",$url,false,false,true,7);
 }
 
@@ -65,7 +65,7 @@ function GetVotes($address,$server){
 
 
 function GetBlocksBy($pk,$server,$offset=0,$orderBy='height',$orderType='desc'){
-	$url = $server.BLOCKS_ENDPOINT.'?generatorPublicKey='.$pk.'&limit=100&offset='.$offset.'&orderBy='.$orderBy.':'.$orderType;
+	$url = $server.BLOCKS_ENDPOINT.'?generatorPublicKey='.$pk.'&limit=100&offset='.$offset.'&sort='.$orderBy.':'.$orderType;
 	return MainFunction("GET",$url,false,false,true,7);
 }
 
