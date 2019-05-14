@@ -52,7 +52,7 @@ function GetVotersFor($pk,$server,$offset=0){
 }
 
 
-function GetDelegatesList($server, $limit=101, $orderBy="rate", $offset=0, $orderType="asc"){
+function GetDelegatesList($server, $limit=101, $orderBy="rank", $offset=0, $orderType="asc"){
     $url = $server.DELEGATE_ENDPOINT.'?limit='.$limit.'&offset='.$offset.'&sort='.$orderBy.':'.$orderType;
     return MainFunction("GET",$url,false,false,true,7);
 }
