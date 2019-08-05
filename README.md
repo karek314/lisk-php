@@ -2,9 +2,6 @@
 Interface to interact with Lisk network via PHP
 CLI Tool and library for php projects
 
-<b>Master</b> branch from and after 1.0.0 version of lisk core.<br>
-<b>Legacy</b> branch - before 1.0.0<br>
-
 ## Requirements
 * PHP 7.0.0 and up
 * dependencies from [setup.sh](https://github.com/karek314/lisk-php/blob/master/setup.sh)
